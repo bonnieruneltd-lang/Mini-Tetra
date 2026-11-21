@@ -32,9 +32,9 @@ you want an interactive seat on the same box.
 ## Quick start
 
 ```bash
-python3 -m minitetra.cli evaluate            # full study -> out/report.json + reports/best3.md
-python3 -m minitetra.cli evaluate --fast     # console summary only (~3 s)
-python3 -m unittest discover -s tests -v    # 17 invariants
+make evaluate   # out/report.json, reports/best3.md, out/candidates.csv, reports/bom.csv
+make test       # 19 invariants
+make fast       # console summary only (~3 s)
 ```
 
 Other useful invocations:
@@ -88,14 +88,29 @@ minitetra/
   catalog.py     hardware catalog and price basis
   model.py       cost, power, throughput, stability and score
   enumerate.py   exhaustive search, podium selection, head analysis
-  report.py      JSON + Markdown report
+  report.py      JSON + Markdown + CSV report
   cli.py         command line entry point
 tests/           invariants (stdlib unittest, no dependencies)
+deploy/
+  compose.worker.yml  one Forge API per GPU, NFS mounts, healthcheck
+  Caddyfile           TLS/auth reverse proxy for SwarmUI
+  README.md           host prep, NFS, NUT and smoke-test steps
 reports/
   best3.md       generated podium with BOMs and head analysis
+  bom.csv        BOM for the three picks, one row per line item
   cluster-design.md  build guide, software stack and ops runbook
-out/report.json  full machine-readable result
+out/
+  report.json    full machine-readable result
+  candidates.csv top 200 scored candidates for spreadsheet review
 ```
+
+## Deploy
+
+`deploy/` contains the templates the build guide refers to: a worker Compose file
+(one Forge API per GPU, read-only NFS models, healthcheck), a Caddyfile for
+SwarmUI with auth/TLS, and a step-by-step host/NUT guide. Pin your Forge image by
+digest before production; the template only assumes the image honours `PORT` and
+`COMMANDLINE_ARGS`.
 
 ## Caveats
 

@@ -1,0 +1,62 @@
+# One Forge instance per GPU. Copy to /srv/forge/compose.yml on each worker.
+# Build and pin your own image first; do not use a floating tag in production.
+name: forge-worker
+
+x-common: &common
+  image: ${FORGE_IMAGE:-forge-worker:local}
+  restart: unless-stopped
+  network_mode: host
+  ipc: host
+  volumes:
+    - /srv/models:/models:ro
+    - /srv/outputs:/outputs:rw
+    - forge-cache:/cache
+  healthcheck:
+    # $$PORT is passed to the container shell, which expands the per-service PORT.
+    test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:$$PORT/sdapi/v1/options >/dev/null || exit 1"]
+    interval: 30s
+    timeout: 10s
+    retries: 3
+    start_period: 300s
+
+services:
+  forge-0:
+    <<: *common
+    environment:
+      PORT: "7860"
+      HF_HOME: /cache/hf
+      COMMANDLINE_ARGS: >-
+        --api --nowebui --listen 0.0.0.0 --port 7860
+        --ckpt-dir /models/checkpoints --lora-dir /models/loras
+        --vae-dir /models/vae --embeddings-dir /models/embeddings
+        --outputs-dir /outputs
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ["0"]
+              capabilities: [gpu]
+
+  # Uncomment on dual-GPU nodes (the second GPU usually sits in the chipset x4 slot).
+  # forge-1:
+  #   <<: *common
+  #   environment:
+  #     PORT: "7861"
+  #     HF_HOME: /cache/hf
+  #     COMMANDLINE_ARGS: >-
+  #       --api --nowebui --listen 0.0.0.0 --port 7861
+  #       --ckpt-dir /models/checkpoints --lora-dir /models/loras
+  #       --vae-dir /models/vae --embeddings-dir /models/embeddings
+  #       --outputs-dir /outputs
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             device_ids: ["1"]
+  #             capabilities: [gpu]
+
+volumes:
+  forge-cache:
+

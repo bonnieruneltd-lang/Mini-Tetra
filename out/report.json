@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "Mini-Tetra multi-Forge cluster study",
-    "generated_utc": "2026-11-21T05:59:34+00:00",
+    "generated_utc": "2026-11-21T06:05:35+00:00",
     "budget_usd": 6000,
     "price_basis": "USD street/retail estimates, Nov 2026, qty 1, tax/shipping excluded; assume +/-15% and re-run with --gpu-price-shock to test the ranking",
     "weights": {

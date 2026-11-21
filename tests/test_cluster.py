@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+import csv
+import os
+import tempfile
 import unittest
 
 from minitetra.catalog import CONTINGENCY, GPUS, HEADS, PLATFORMS
@@ -144,6 +147,43 @@ class TestUnitRules(unittest.TestCase):
         for head in HEADS.values():
             if head.has_gpu:
                 self.assertIn(head.has_gpu, GPUS)
+
+
+class TestExports(unittest.TestCase):
+    def test_candidates_csv(self) -> None:
+        from minitetra.report import write_candidates_csv
+
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "candidates.csv")
+            write_candidates_csv(EX, path, limit=25)
+            with open(path, newline="", encoding="utf-8") as fh:
+                rows = list(csv.DictReader(fh))
+        self.assertEqual(len(rows), 25)
+        self.assertEqual(rows[0]["rank"], "1")
+        self.assertEqual(rows[0]["signature"], EX.top[0].signature)
+        self.assertEqual(rows[0]["ups"], "yes")
+        self.assertLessEqual(float(rows[0]["total_cost_usd"]), 6000)
+        self.assertGreater(float(rows[0]["score"]), 0)
+
+    def test_bom_csv_sums_per_pick(self) -> None:
+        from minitetra.report import write_bom_csv
+
+        payload = {"winners": [
+            {"label": label, "total_cost_usd": c.total_cost,
+             "bom": c.summary()["bom"]}
+            for c, label, _ in WINNERS
+        ]}
+        with tempfile.TemporaryDirectory() as tmp:
+            path = os.path.join(tmp, "bom.csv")
+            write_bom_csv(payload, path)
+            with open(path, newline="", encoding="utf-8") as fh:
+                rows = list(csv.DictReader(fh))
+        picks = {row["pick"] for row in rows}
+        self.assertEqual(picks, {label for _, label, _ in WINNERS})
+        for pick in picks:
+            build = int(next(r["build_total_usd"] for r in rows if r["pick"] == pick))
+            total = sum(int(r["total_usd"]) for r in rows if r["pick"] == pick)
+            self.assertEqual(total, build)
 
 
 def WINNERS_CONTEXT():

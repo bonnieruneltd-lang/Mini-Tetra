@@ -1,0 +1,26 @@
+pick,build_total_usd,item,qty,unit_usd,total_usd
+Best overall,5921,"Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",1,840,840
+Best overall,5921,"Worker chassis/CPU/RAM/SSD: Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX)",2,980,1960
+Best overall,5921,GPU: GeForce RTX 5060 Ti 16 GB,4,500,2000
+Best overall,5921,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Best overall,5921,Network: cables/DACs,3,8,24
+Best overall,5921,"Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",1,260,260
+Best overall,5921,"UPS, 2000 VA / 1600 W line-interactive",1,330,330
+Best overall,5921,Contingency 7% (tax/shipping/price drift),1,387,387
+Most resilient,5673,"Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",1,840,840
+Most resilient,5673,"Worker chassis/CPU/RAM/SSD: Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU)",3,740,2220
+Most resilient,5673,GPU: GeForce RTX 5060 Ti 16 GB,3,500,1500
+Most resilient,5673,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Most resilient,5673,Network: cables/DACs,4,8,32
+Most resilient,5673,"Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",1,260,260
+Most resilient,5673,"UPS, 2000 VA / 1600 W line-interactive",1,330,330
+Most resilient,5673,Contingency 7% (tax/shipping/price drift),1,371,371
+Best pure mini-PC,5384,"Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",1,840,840
+Best pure mini-PC,5384,"Worker chassis/CPU/RAM/SSD: GMKtec K8 Plus (Ryzen 7 8845HS, 32 GB, 1 TB) + OCuLink dock",3,520,1560
+Best pure mini-PC,5384,GPU: GeForce RTX 5060 Ti 16 GB,3,500,1500
+Best pure mini-PC,5384,eGPU dock + PSU,3,160,480
+Best pure mini-PC,5384,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Best pure mini-PC,5384,Network: cables/DACs,4,8,32
+Best pure mini-PC,5384,"Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",1,260,260
+Best pure mini-PC,5384,"UPS, 1500 VA / 1200 W line-interactive",1,240,240
+Best pure mini-PC,5384,Contingency 7% (tax/shipping/price drift),1,352,352

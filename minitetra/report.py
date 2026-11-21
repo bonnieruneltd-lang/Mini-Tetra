@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import csv
 import json
+import os
 from datetime import datetime, timezone
 
 from .catalog import FABRICS, GPUS, HEADS, PLATFORMS, PRICE_BASIS, STORAGE
@@ -16,7 +18,13 @@ from .enumerate import (
 from .model import WEIGHTS
 
 
-def build_payload(budget: int = 6000, gpu_price_scale: float = 1.0, top: int = 3) -> dict:
+def build_payload(
+    budget: int = 6000,
+    gpu_price_scale: float = 1.0,
+    top: int = 3,
+    csv_path: str | None = None,
+    bom_path: str | None = None,
+) -> dict:
     ex = explore(budget, gpu_price_scale=gpu_price_scale)
     winners = select_winners(ex, top)
     win = winners[0][0]
@@ -104,6 +112,10 @@ def build_payload(budget: int = 6000, gpu_price_scale: float = 1.0, top: int = 3
         "robustness": {"scenarios": scenarios},
         "weight_sensitivity": weight_sensitivity(ex),
     }
+    if csv_path:
+        write_candidates_csv(ex, csv_path)
+    if bom_path:
+        write_bom_csv(payload, bom_path)
     return payload
 
 
@@ -306,3 +318,69 @@ def write_reports(payload: dict, json_path: str, md_path: str) -> None:
         json.dump(payload, fh, indent=2)
     with open(md_path, "w", encoding="utf-8") as fh:
         fh.write(render_markdown(payload))
+
+
+CANDIDATE_COLUMNS = [
+    "rank", "score", "signature", "head_mode", "head", "platform", "gpu",
+    "gpus_total", "vram_gb", "boxes", "gpus_per_box", "fabric", "storage",
+    "ups", "ha", "total_cost_usd", "peak_w", "idle_w", "perf_index",
+    "capability", "stability", "throughput", "capability_score",
+    "stability_score", "efficiency", "value", "expandability",
+]
+
+
+def write_candidates_csv(ex: Exploration, path: str, limit: int = 200) -> None:
+    """Export the top N scored candidates for spreadsheet review."""
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(CANDIDATE_COLUMNS)
+        for rank, c in enumerate(ex.top[:limit], 1):
+            comp = c.components
+            writer.writerow([
+                rank,
+                f"{c.score:.2f}",
+                c.signature,
+                c.head_mode,
+                c.head.name if c.head else "worker-as-head",
+                c.platform.name,
+                c.gpu.name,
+                c.gpus_total,
+                c.total_vram_gb,
+                c.boxes,
+                c.gpus_per_box,
+                FABRICS[c.fabric_key].name,
+                STORAGE[c.storage_key].name,
+                "yes" if c.ups else "no",
+                "yes" if c.ha else "no",
+                c.total_cost,
+                f"{c.peak_w:.1f}",
+                f"{c.idle_w:.1f}",
+                f"{c.perf_index:.1f}",
+                f"{c.capability:.4f}",
+                f"{c.stability:.2f}",
+                f"{comp['throughput']:.1f}",
+                f"{comp['capability']:.1f}",
+                f"{comp['stability']:.1f}",
+                f"{comp['efficiency']:.1f}",
+                f"{comp['value']:.1f}",
+                f"{comp['expandability']:.1f}",
+            ])
+
+
+def write_bom_csv(payload: dict, path: str) -> None:
+    """Export the bill of materials for every podium pick."""
+    os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+    with open(path, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.writer(fh)
+        writer.writerow(["pick", "build_total_usd", "item", "qty", "unit_usd", "total_usd"])
+        for win in payload["winners"]:
+            for line in win["bom"]:
+                writer.writerow([
+                    win["label"],
+                    win["total_cost_usd"],
+                    line["label"],
+                    line["qty"],
+                    line["unit_usd"],
+                    line["total_usd"],
+                ])

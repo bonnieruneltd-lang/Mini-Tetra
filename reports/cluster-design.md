@@ -218,6 +218,8 @@ UPS on battery, NFS latency > 50 ms.
 fleet. Update one worker, run the smoke test, then roll. Never auto-update a
 working inference stack mid-week.
 
+Ready-to-adapt Compose, Caddy and NUT templates are in [`../deploy/`](../deploy/README.md).
+
 ## Power, cooling and network
 
 **Power.** The three builds peak at 1,104 W, 1,017 W and 906 W. A 15 A / 120 V

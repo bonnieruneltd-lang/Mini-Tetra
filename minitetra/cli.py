@@ -27,7 +27,8 @@ def cmd_evaluate(args: argparse.Namespace) -> None:
             print(f"    {why}")
         return
 
-    payload = build_payload(args.budget, args.gpu_price_shock, args.top)
+    payload = build_payload(args.budget, args.gpu_price_shock, args.top,
+                            args.csv, args.bom_csv)
     write_reports(payload, args.json, args.markdown)
     ex = payload["exploration"]
     print(f"considered={ex['considered']:,} valid={ex['valid']:,} "
@@ -35,7 +36,7 @@ def cmd_evaluate(args: argparse.Namespace) -> None:
     for w in payload["winners"]:
         print(f"#{w['rank']} score={w['score']:.2f} cost=${w['total_cost_usd']:,} "
               f"{w['gpu']} x{w['gpus_total']} | {w['boxes']}x {w['platform']}")
-    print(f"\nwrote {args.json} and {args.markdown}")
+    print(f"\nwrote {args.json}, {args.markdown}, {args.csv} and {args.bom_csv}")
 
 
 def cmd_head(args: argparse.Namespace) -> None:
@@ -54,6 +55,8 @@ def main(argv: list[str] | None = None) -> int:
     ev.add_argument("--budget", type=int, default=6000)
     ev.add_argument("--json", default="out/report.json")
     ev.add_argument("--markdown", default="reports/best3.md")
+    ev.add_argument("--csv", default="out/candidates.csv")
+    ev.add_argument("--bom-csv", default="reports/bom.csv")
     ev.add_argument("--top", type=int, default=3)
     ev.add_argument("--keep", type=int, default=2000)
     ev.add_argument("--gpu-price-shock", type=float, default=1.0)
