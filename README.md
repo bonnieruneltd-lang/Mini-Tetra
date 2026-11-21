@@ -33,7 +33,7 @@ you want an interactive seat on the same box.
 
 ```bash
 make evaluate   # out/report.json, reports/best3.md, out/candidates.csv, reports/bom.csv
-make test       # 19 invariants
+make test       # 2,022 tests (~5 s)
 make fast       # console summary only (~3 s)
 ```
 
@@ -81,6 +81,16 @@ Run `--gpu-price-shock 1.15` to see the ranking under a 15% GPU price rise, and
 read the weight-sensitivity section of the report to see how the podium moves
 under throughput-first, stability-first and value-first weights.
 
+## Test matrix
+
+`make test` runs **2,022** tests: 19 invariants, 3 matrix-shape checks, and 2,000
+generated configuration cases (seed `20261121`, stdlib only). The generated cases
+cover every selectable platform, GPU, fabric and storage option. Each case asserts
+BOM arithmetic, circuit/PSU limits, chassis compatibility, score bounds, UPS
+sizing and deterministic re-evaluation. The three catalog GPUs that no chassis can
+host (RTX 5080/5090, RX 7900 XTX) are asserted to be absent rather than silently
+scored.
+
 ## Repository layout
 
 ```
@@ -90,7 +100,7 @@ minitetra/
   enumerate.py   exhaustive search, podium selection, head analysis
   report.py      JSON + Markdown + CSV report
   cli.py         command line entry point
-tests/           invariants (stdlib unittest, no dependencies)
+tests/           19 invariants + 2,000 generated configuration cases
 deploy/
   compose.worker.yml  one Forge API per GPU, NFS mounts, healthcheck
   Caddyfile           TLS/auth reverse proxy for SwarmUI
