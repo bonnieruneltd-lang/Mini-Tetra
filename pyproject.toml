@@ -1,0 +1,9 @@
+[project]
+name = "minitetra"
+version = "1.0.0"
+description = "Mini-Tetra: a reproducible $6k multi-Forge mini-PC cluster design study"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools]
+packages = ["minitetra"]
