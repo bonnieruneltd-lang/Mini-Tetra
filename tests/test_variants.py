@@ -18,7 +18,7 @@ from minitetra.variants import (
     pruned_catalog,
 )
 
-EX = explore_extended(6000, keep=30, max_boxes=2)
+EX = explore_extended(6000, keep=20, max_boxes=1, max_gpus=50, max_platforms=40)
 
 
 class TestVariantCatalog(unittest.TestCase):

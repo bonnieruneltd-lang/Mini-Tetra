@@ -1,0 +1,474 @@
+{
+  "meta": {
+    "name": "Mini-Tetra Minecraft Forge cluster study",
+    "generated_utc": "2026-11-21T17:30:03+00:00",
+    "budget_usd": 6000,
+    "workload": "multiple Minecraft Forge server instances",
+    "gpus_required": 0,
+    "weights": {
+      "capacity": 0.3,
+      "tick": 0.3,
+      "memory": 0.1,
+      "storage": 0.1,
+      "stability": 0.15,
+      "value": 0.05
+    },
+    "catalog": {
+      "cpus": 20,
+      "chassis": 7,
+      "heads": 5
+    }
+  },
+  "exploration": {
+    "considered": 457920,
+    "valid": 457920,
+    "within_budget": 246842,
+    "eligible": 97868
+  },
+  "winners": [
+    {
+      "rank": 1,
+      "label": "Best overall",
+      "rationale": "Highest weighted score: instance capacity, tick performance and stability.",
+      "signature": "i7_14700k|itx_lga1700|64g|4tb|4n|ms01|2.5gbe|single|ups",
+      "cpu": "Core i7-14700K",
+      "cpu_key": "i7_14700k",
+      "chassis": "Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G)",
+      "ram_gb_per_node": 64,
+      "storage_tb_per_node": 4,
+      "nodes": 4,
+      "head": "Minisforum MS-01 (i9, 32 GB, 2x10G)",
+      "fabric": "2.5 GbE",
+      "raid": false,
+      "ups": true,
+      "instances_per_node": 8,
+      "total_instances": 32,
+      "total_ram_gb": 256,
+      "total_storage_tb": 16,
+      "tick_index": 81.5,
+      "peak_w": 1146.0,
+      "idle_w": 134,
+      "total_cost_usd": 5949,
+      "stability": 7.72,
+      "stability_notes": [
+        "8+ modpacks per node: tick spikes and GC pauses are harder to isolate"
+      ],
+      "components": {
+        "capacity": 100.0,
+        "tick": 74.1,
+        "memory": 88.9,
+        "storage": 100.0,
+        "stability": 77.2,
+        "value": 67.2
+      },
+      "score": 86.08,
+      "gpus": 0,
+      "bom": [
+        {
+          "label": "Node: Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G) + Core i7-14700K",
+          "qty": 4,
+          "unit_usd": 680,
+          "total_usd": 2720
+        },
+        {
+          "label": "DDR5 kit, 64 GB",
+          "qty": 4,
+          "unit_usd": 160,
+          "total_usd": 640
+        },
+        {
+          "label": "NVMe, 4 TB",
+          "qty": 4,
+          "unit_usd": 220,
+          "total_usd": 880
+        },
+        {
+          "label": "Head: Minisforum MS-01 (i9, 32 GB, 2x10G)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Switch: 2.5 GbE",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Cables",
+          "qty": 5,
+          "unit_usd": 8,
+          "total_usd": 40
+        },
+        {
+          "label": "UPS, 2000 VA",
+          "qty": 1,
+          "unit_usd": 320,
+          "total_usd": 320
+        },
+        {
+          "label": "Contingency 7%",
+          "qty": 1,
+          "unit_usd": 389,
+          "total_usd": 389
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "Most resilient",
+      "rationale": "Best score among 3+ node builds with a dedicated head and stability >= 8.",
+      "signature": "r5_9600x|itx_am5|64g|4tb|5n|ms01|1gbe|single|ups",
+      "cpu": "Ryzen 5 9600X",
+      "cpu_key": "r5_9600x",
+      "chassis": "Custom 8 L ITX (AM5, 2x DDR5, 2x M.2, 2.5G)",
+      "ram_gb_per_node": 64,
+      "storage_tb_per_node": 4,
+      "nodes": 5,
+      "head": "Minisforum MS-01 (i9, 32 GB, 2x10G)",
+      "fabric": "1 GbE",
+      "raid": false,
+      "ups": true,
+      "instances_per_node": 6,
+      "total_instances": 30,
+      "total_ram_gb": 320,
+      "total_storage_tb": 20,
+      "tick_index": 78.4,
+      "peak_w": 667.5,
+      "idle_w": 163,
+      "total_cost_usd": 5929,
+      "stability": 8.1,
+      "stability_notes": [],
+      "components": {
+        "capacity": 93.8,
+        "tick": 71.2,
+        "memory": 100.0,
+        "storage": 100.0,
+        "stability": 81.0,
+        "value": 63.2
+      },
+      "score": 84.81,
+      "gpus": 0,
+      "bom": [
+        {
+          "label": "Node: Custom 8 L ITX (AM5, 2x DDR5, 2x M.2, 2.5G) + Ryzen 5 9600X",
+          "qty": 5,
+          "unit_usd": 500,
+          "total_usd": 2500
+        },
+        {
+          "label": "DDR5 kit, 64 GB",
+          "qty": 5,
+          "unit_usd": 160,
+          "total_usd": 800
+        },
+        {
+          "label": "NVMe, 4 TB",
+          "qty": 5,
+          "unit_usd": 220,
+          "total_usd": 1100
+        },
+        {
+          "label": "Head: Minisforum MS-01 (i9, 32 GB, 2x10G)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Switch: 1 GbE",
+          "qty": 1,
+          "unit_usd": 45,
+          "total_usd": 45
+        },
+        {
+          "label": "Cables",
+          "qty": 6,
+          "unit_usd": 6,
+          "total_usd": 36
+        },
+        {
+          "label": "UPS, 1500 VA",
+          "qty": 1,
+          "unit_usd": 220,
+          "total_usd": 220
+        },
+        {
+          "label": "Contingency 7%",
+          "qty": 1,
+          "unit_usd": 388,
+          "total_usd": 388
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "Most instances",
+      "rationale": "Maximum Forge instances while keeping estimated tick index >= 65.",
+      "signature": "i5_14600k|itx_lga1700|96g|1tb|5n|n100|1gbe|single|ups",
+      "cpu": "Core i5-14600K",
+      "cpu_key": "i5_14600k",
+      "chassis": "Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G)",
+      "ram_gb_per_node": 96,
+      "storage_tb_per_node": 1,
+      "nodes": 5,
+      "head": "Beelink EQ12 (N100, 16 GB)",
+      "fabric": "1 GbE",
+      "raid": false,
+      "ups": true,
+      "instances_per_node": 10,
+      "total_instances": 50,
+      "total_ram_gb": 480,
+      "total_storage_tb": 5,
+      "tick_index": 68.5,
+      "peak_w": 1100.0,
+      "idle_w": 153,
+      "total_cost_usd": 5308,
+      "stability": 6.1,
+      "stability_notes": [
+        "panel/backup host is undersized for this many instances",
+        "8+ modpacks per node: tick spikes and GC pauses are harder to isolate",
+        "estimated tick headroom is marginal at this instance density"
+      ],
+      "components": {
+        "capacity": 100.0,
+        "tick": 62.3,
+        "memory": 100.0,
+        "storage": 22.2,
+        "stability": 61.0,
+        "value": 100.0
+      },
+      "score": 75.05,
+      "gpus": 0,
+      "bom": [
+        {
+          "label": "Node: Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G) + Core i5-14600K",
+          "qty": 5,
+          "unit_usd": 550,
+          "total_usd": 2750
+        },
+        {
+          "label": "DDR5 kit, 96 GB",
+          "qty": 5,
+          "unit_usd": 240,
+          "total_usd": 1200
+        },
+        {
+          "label": "NVMe, 1 TB",
+          "qty": 5,
+          "unit_usd": 70,
+          "total_usd": 350
+        },
+        {
+          "label": "Head: Beelink EQ12 (N100, 16 GB)",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "Switch: 1 GbE",
+          "qty": 1,
+          "unit_usd": 45,
+          "total_usd": 45
+        },
+        {
+          "label": "Cables",
+          "qty": 6,
+          "unit_usd": 6,
+          "total_usd": 36
+        },
+        {
+          "label": "UPS, 2000 VA",
+          "qty": 1,
+          "unit_usd": 320,
+          "total_usd": 320
+        },
+        {
+          "label": "Contingency 7%",
+          "qty": 1,
+          "unit_usd": 347,
+          "total_usd": 347
+        }
+      ]
+    }
+  ],
+  "alternatives": {
+    "best_value": {
+      "signature": "i5_14600k|itx_lga1700|96g|4tb|4n|um890|1gbe|single|ups",
+      "cpu": "Core i5-14600K",
+      "cpu_key": "i5_14600k",
+      "chassis": "Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G)",
+      "ram_gb_per_node": 96,
+      "storage_tb_per_node": 4,
+      "nodes": 4,
+      "head": "Minisforum UM890 (Ryzen 9, 32 GB)",
+      "fabric": "1 GbE",
+      "raid": false,
+      "ups": true,
+      "instances_per_node": 10,
+      "total_instances": 40,
+      "total_ram_gb": 384,
+      "total_storage_tb": 16,
+      "tick_index": 68.5,
+      "peak_w": 921.0,
+      "idle_w": 131,
+      "total_cost_usd": 5430,
+      "stability": 6.93,
+      "stability_notes": [
+        "8+ modpacks per node: tick spikes and GC pauses are harder to isolate",
+        "estimated tick headroom is marginal at this instance density"
+      ],
+      "components": {
+        "capacity": 100.0,
+        "tick": 62.3,
+        "memory": 100.0,
+        "storage": 88.9,
+        "stability": 69.2,
+        "value": 92.1
+      },
+      "score": 82.56,
+      "gpus": 0,
+      "bom": [
+        {
+          "label": "Node: Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G) + Core i5-14600K",
+          "qty": 4,
+          "unit_usd": 550,
+          "total_usd": 2200
+        },
+        {
+          "label": "DDR5 kit, 96 GB",
+          "qty": 4,
+          "unit_usd": 240,
+          "total_usd": 960
+        },
+        {
+          "label": "NVMe, 4 TB",
+          "qty": 4,
+          "unit_usd": 220,
+          "total_usd": 880
+        },
+        {
+          "label": "Head: Minisforum UM890 (Ryzen 9, 32 GB)",
+          "qty": 1,
+          "unit_usd": 640,
+          "total_usd": 640
+        },
+        {
+          "label": "Switch: 1 GbE",
+          "qty": 1,
+          "unit_usd": 45,
+          "total_usd": 45
+        },
+        {
+          "label": "Cables",
+          "qty": 5,
+          "unit_usd": 6,
+          "total_usd": 30
+        },
+        {
+          "label": "UPS, 2000 VA",
+          "qty": 1,
+          "unit_usd": 320,
+          "total_usd": 320
+        },
+        {
+          "label": "Contingency 7%",
+          "qty": 1,
+          "unit_usd": 355,
+          "total_usd": 355
+        }
+      ]
+    },
+    "best_tick": {
+      "signature": "i7_14700k|itx_lga1700|64g|4tb|4n|ms01|2.5gbe|single|ups",
+      "cpu": "Core i7-14700K",
+      "cpu_key": "i7_14700k",
+      "chassis": "Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G)",
+      "ram_gb_per_node": 64,
+      "storage_tb_per_node": 4,
+      "nodes": 4,
+      "head": "Minisforum MS-01 (i9, 32 GB, 2x10G)",
+      "fabric": "2.5 GbE",
+      "raid": false,
+      "ups": true,
+      "instances_per_node": 8,
+      "total_instances": 32,
+      "total_ram_gb": 256,
+      "total_storage_tb": 16,
+      "tick_index": 81.5,
+      "peak_w": 1146.0,
+      "idle_w": 134,
+      "total_cost_usd": 5949,
+      "stability": 7.72,
+      "stability_notes": [
+        "8+ modpacks per node: tick spikes and GC pauses are harder to isolate"
+      ],
+      "components": {
+        "capacity": 100.0,
+        "tick": 74.1,
+        "memory": 88.9,
+        "storage": 100.0,
+        "stability": 77.2,
+        "value": 67.2
+      },
+      "score": 86.08,
+      "gpus": 0,
+      "bom": [
+        {
+          "label": "Node: Custom 8 L ITX (LGA1700, 2x DDR5, 2x M.2, 2.5G) + Core i7-14700K",
+          "qty": 4,
+          "unit_usd": 680,
+          "total_usd": 2720
+        },
+        {
+          "label": "DDR5 kit, 64 GB",
+          "qty": 4,
+          "unit_usd": 160,
+          "total_usd": 640
+        },
+        {
+          "label": "NVMe, 4 TB",
+          "qty": 4,
+          "unit_usd": 220,
+          "total_usd": 880
+        },
+        {
+          "label": "Head: Minisforum MS-01 (i9, 32 GB, 2x10G)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Switch: 2.5 GbE",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Cables",
+          "qty": 5,
+          "unit_usd": 8,
+          "total_usd": 40
+        },
+        {
+          "label": "UPS, 2000 VA",
+          "qty": 1,
+          "unit_usd": 320,
+          "total_usd": 320
+        },
+        {
+          "label": "Contingency 7%",
+          "qty": 1,
+          "unit_usd": 389,
+          "total_usd": 389
+        }
+      ]
+    },
+    "single_node": null
+  },
+  "stats": {
+    "cpus": 20,
+    "chassis": 7,
+    "heads": 5,
+    "max_instances": 50
+  }
+}

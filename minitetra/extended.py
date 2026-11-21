@@ -15,6 +15,8 @@ def explore_extended(
     keep: int = 1000,
     max_boxes: int = 4,
     min_vram: int = 16,
+    max_gpus: int = 90,
+    max_platforms: int = 60,
     catalog: Catalog | None = None,
 ) -> Exploration:
     """Search the extended catalog after dominance pruning.
@@ -25,7 +27,7 @@ def explore_extended(
     brings the search to a few hundred thousand builds.
     """
     base = catalog or CATALOG
-    pruned, pruning = pruned_catalog(base, HEAD_SHORTLIST)
+    pruned, pruning = pruned_catalog(base, HEAD_SHORTLIST, max_gpus, max_platforms)
     ex = explore(
         budget,
         gpu_price_scale=gpu_price_scale,

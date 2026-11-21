@@ -1,16 +1,34 @@
-# Mini-Tetra — a $6k multi-Forge mini-PC cluster
+# Mini-Tetra — cluster design studies
 
-A reproducible design study for a small cluster that serves **Stable Diffusion WebUI
-Forge** from several GPUs behind one queue. The repo contains the hardware catalog,
-an exhaustive configurator, the scoring model, tests, and the generated report.
+Two different workloads share the name **Forge**:
 
-The configurator does not hand-pick a build. It enumerates every valid combination
-of head node, worker chassis, GPU, node count, network fabric, storage strategy,
-UPS and head redundancy, throws out anything that violates budget, power, chassis
-or software constraints, scores what remains, and then selects three builds with
-different design goals.
+1. **Minecraft Forge** — Java game servers. CPU tick time, RAM and NVMe bound; **0 GPUs**.
+2. **Stable Diffusion WebUI Forge** — GPU image generation.
 
-## TL;DR — variant study (1,817 extra models)
+The earlier answer assumed Stable Diffusion. If you meant Minecraft, the first
+section is the corrected study; the rest of the repo is the image-generation work.
+
+## Minecraft Forge cluster — no GPU
+
+`make mc` enumerates **457,920** CPU/RAM/chassis/node/network/RAID/UPS
+combinations. The tick loop is single-thread CPU work, each modpack needs ~8 GB
+RAM, and worlds want NVMe. A discrete GPU does nothing for a dedicated server.
+
+| Pick | CPU × nodes | RAM/node | Instances | Tick | Stability | Cost |
+|---|---|---|---:|---:|---:|---:|
+| **Best overall** | Core i7-14700K × 4 | 64 GB | 32 | 82 | 7.72 | **$5,949** |
+| **Most resilient** | Ryzen 5 9600X × 5 | 64 GB | 30 | 78 | 8.10 | **$5,929** |
+| **Most instances** | Core i5-14600K × 5 | 96 GB | 50 | 68 | 6.10 | **$5,308** |
+
+Full report: [`reports/minecraft-forge.md`](reports/minecraft-forge.md). Every
+build uses 0 GPUs, a dedicated panel/backup head, a UPS, and 2.5 GbE; the
+integrated GPU is enough for console access.
+
+## Stable Diffusion WebUI Forge (GPU)
+
+This section applies only if you meant image generation. It is the earlier answer.
+
+### Best 3 (expanded catalog)
 
 | Pick | Build | Workers / VRAM | Cost | Perf | Stability |
 |---|---|---|---:|---:|---:|
@@ -33,10 +51,11 @@ you want an interactive seat on the same box.
 ## Quick start
 
 ```bash
-make evaluate   # out/report.json, reports/best3.md, out/candidates.csv, reports/bom.csv
-make variants   # 1,817 extra models, power-first podium (~35 s)
-make test       # 2,030 tests (~11 s)
-make fast       # console summary only (~3 s)
+make mc         # Minecraft Forge: 0 GPUs, 457,920 configs (~5 s)
+make evaluate   # Stable Diffusion Forge: base GPU study
+make variants   # Stable Diffusion Forge: 1,817 extra models
+make test       # 2,041 tests (~15 s)
+make fast       # Stable Diffusion console summary
 ```
 
 Other useful invocations:
@@ -108,8 +127,9 @@ recommendation.
 
 ## Test matrix
 
-`make test` runs **2,030** tests: 19 invariants, 3 matrix-shape checks, 2,000
-generated configuration cases (seed `20261121`, stdlib only). The generated cases
+`make test` runs **2,041** tests: 19 invariants, 3 matrix-shape checks, 2,000
+generated configuration cases, 8 variant tests and 11 Minecraft Forge tests
+(seed `20261121`, stdlib only). The generated cases
 cover every selectable platform, GPU, fabric and storage option. Each case asserts
 BOM arithmetic, circuit/PSU limits, chassis compatibility, score bounds, UPS
 sizing and deterministic re-evaluation. The three catalog GPUs that no chassis can
@@ -119,6 +139,12 @@ scored.
 ## Repository layout
 
 ```
+mcforge/
+  catalog.py     CPUs, chassis, RAM, heads, network for Minecraft
+  model.py       instances, tick estimate, cost and stability
+  search.py      457,920-combination search and podium selection
+  report.py      Markdown + JSON report
+  cli.py         python -m mcforge.cli evaluate
 minitetra/
   catalog.py     hardware catalog and price basis
   model.py       cost, power, throughput, stability and score
@@ -127,7 +153,7 @@ minitetra/
   variants.py    1,817 generated models + Pareto pruning
   extended.py    variant search and power analysis
   cli.py         command line entry point
-tests/           19 invariants + 2,000 generated + 8 variant tests
+tests/           19 invariants + 2,000 generated + 8 variant + 11 Minecraft
 deploy/
   compose.worker.yml  one Forge API per GPU, NFS mounts, healthcheck
   Caddyfile           TLS/auth reverse proxy for SwarmUI
@@ -138,7 +164,9 @@ reports/
   best3-variants.md  podium for the 1,817-model variant search
   bom-variants.csv   BOMs for the variant podium
   cluster-design.md  build guide, software stack and ops runbook
+  minecraft-forge.md Minecraft cluster podium (0 GPUs)
 out/
+  mcforge.json   Minecraft cluster search result
   report.json    full machine-readable result
   candidates.csv top 200 scored candidates for spreadsheet review
   report-variants.json / candidates-variants.csv  variant results
