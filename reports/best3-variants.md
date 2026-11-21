@@ -1,20 +1,20 @@
 # Best 3 mini-Forge clusters — variant study
 
-Budget **$6,000** · 1528 additional models · 2,085,120 build combinations enumerated · 1,223,472 valid after physics/compatibility checks · 407,452 inside budget · 91,223 eligible after baseline filters (new hardware, UPS, ≥16 GB per GPU).
+Budget **$6,000** · 1817 additional models · 1,942,272 build combinations enumerated · 1,041,264 valid after physics/compatibility checks · 326,089 inside budget · 109,248 eligible after baseline filters (new hardware, UPS, ≥16 GB per GPU).
 
 Scoring: throughput 32%, GPU capability (VRAM) 18%, stability 22%, efficiency 8%, value 12%, expandability 8%. Prices: USD street/retail estimates, Nov 2026, qty 1, tax/shipping excluded; assume +/-15% and re-run with --gpu-price-shock to test the ranking.
 
 | Pick | Topology | Workers / total VRAM | Cost | Peak | Perf | Stability | Score |
 |---|---|---|---:|---:|---:|---:|---:|
 | Best overall | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU | 3 / 48 GB | $5,763 | 1073 W | 856 | 7.16/10 | 73.4 |
-| Best raw power | Workstation head: ITX + RTX 5080 16 GB + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU | 2 / 48 GB | $5,881 | 938 W | 932 | 6.20/10 | 72.4 |
+| Best raw power | Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB) + 1x Custom OPEN8 PC — Ryzen 5 5600, 32 GB, 1 TB, 1600 W, 8 GPU | 3 / 48 GB | $5,952 | 1102 W | 998 | 6.05/10 | 71.9 |
 | Most resilient | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 3x Custom MATX2 PC — Ryzen 5 5600, 16 GB, 1 TB, 650 W, 1 GPU | 3 / 48 GB | $5,727 | 945 W | 499 | 8.88/10 | 68.2 |
 
 ## Best power
 
 | Metric | Build | Workers / total VRAM | Cost | Perf | Perf/W | Stability |
 |---|---|---|---:|---:|---:|---:|
-| Best raw power | Workstation head: ITX + RTX 5080 16 GB + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU | 2 / 48 GB | $5,881 | 932 | 0.99 | 6.20 |
+| Best raw power | Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB) + 1x Custom OPEN8 PC — Ryzen 5 5600, 32 GB, 1 TB, 1600 W, 8 GPU | 3 / 48 GB | $5,952 | 998 | 0.91 | 6.05 |
 | Best efficiency | Workstation head: ITX + RTX 5080 16 GB + 1x Custom MATX2 PC — Ryzen 5 5600, 32 GB, 1 TB, 650 W, 2 GPU | 2 / 48 GB | $5,991 | 1007 | 1.06 | 4.41 |
 | Best power at stability ≥ 8.5 | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 3x Minisforum NUCXi9 (i9-13900H + RTX 3080 Mobile 16 GB) | 3 / 48 GB | $5,887 | 570 | 0.60 | 8.55 |
 
@@ -47,32 +47,32 @@ Stability notes:
 - PSU above 90% of rating at peak: shutdown risk
 - UPS: prevents checkpoint/queue corruption on brownouts
 
-## Best raw power: GeForce RTX 5070 Ti 16 GB x2 — $5,881
+## Best raw power: GeForce RTX 4080 SUPER 16 GB — Palit GamingPro x3 — $5,952
 
 Highest aggregate GPU index with stability >= 6.0; this is the build to pick when throughput matters more than uptime.
 
-- Head: **Workstation head: ITX + RTX 5080 16 GB**
-- Workers: **1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU**, 2 GPU per chassis
+- Head: **Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB)**
+- Workers: **1x Custom OPEN8 PC — Ryzen 5 5600, 32 GB, 1 TB, 1600 W, 8 GPU**, 3 GPU per chassis
 - Network: 2.5 GbE (8-port 2.5G switch) · Storage: 4 TB NVMe model cache in head, exported over NFS/SMB · UPS: yes · HA head: no
-- Peak draw: 938 W · idle: 144 W
+- Peak draw: 1102 W · idle: 134 W
 - VRAM: 48 GB total, 0.81 capability index
 
 | Item | Qty | Unit | Total |
 |---|---:|---:|---:|
-| Head node: Workstation head: ITX + RTX 5080 16 GB | 1 | $1,900 | $1,900 |
-| Worker chassis/CPU/RAM/SSD: Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU | 1 | $1,240 | $1,240 |
-| GPU: GeForce RTX 5070 Ti 16 GB | 2 | $860 | $1,720 |
+| Head node: Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB) | 1 | $400 | $400 |
+| Worker chassis/CPU/RAM/SSD: Custom OPEN8 PC — Ryzen 5 5600, 32 GB, 1 TB, 1600 W, 8 GPU | 1 | $1,125 | $1,125 |
+| GPU: GeForce RTX 4080 SUPER 16 GB — Palit GamingPro | 3 | $1,104 | $3,312 |
 | Network: 2.5 GbE (8-port 2.5G switch) - switch(es) | 1 | $120 | $120 |
 | Network: cables/DACs | 2 | $8 | $16 |
 | Storage: 4 TB NVMe model cache in head, exported over NFS/SMB | 1 | $260 | $260 |
-| UPS, 1500 VA / 1200 W line-interactive | 1 | $240 | $240 |
-| Contingency 7% (tax/shipping/price drift) | 1 | $385 | $385 |
-| **Total** | | | **$5,881** |
+| UPS, 2000 VA / 1600 W line-interactive | 1 | $330 | $330 |
+| Contingency 7% (tax/shipping/price drift) | 1 | $389 | $389 |
+| **Total** | | | **$5,952** |
 
 Stability notes:
-- head has a GPU: a driver reset or OOM also kills the queue
 - multiple GPUs share one PSU per chassis
-- large fault domain: one node failure removes 2/2 of the GPUs
+- large fault domain: one node failure removes 3/3 of the GPUs
+- PSU above 90% of rating at peak: shutdown risk
 - UPS: prevents checkpoint/queue corruption on brownouts
 
 ## Most resilient: GeForce RTX 5060 Ti 16 GB x3 — $5,727
@@ -103,7 +103,7 @@ Stability notes:
 
 ## Variant search
 
-1528 additional models were generated: 267 GPUs, 1231 worker platforms, 30 heads. Dominance pruning kept 90 GPUs, 60 platforms and 7 heads; the rest were worse on every axis (price, throughput, power, VRAM, slots or I/O).
+1817 additional models were generated: 324 GPUs, 1463 worker platforms, 30 heads. Dominance pruning kept 90 GPUs, 60 platforms and 7 heads; the rest were worse on every axis (price, throughput, power, VRAM, slots or I/O).
 
 The variant search evaluated 2.5G, 5G, 10G and 25G networking with shared NVMe, local NVMe and NVMe RAID storage; 1G, NAS and HA-head options were already eliminated by the base study at this scale. It evaluated every remaining GPU, slot count and fleet size.
 
@@ -140,10 +140,10 @@ If you drop the separate head and put that money into GPUs, about $5,977 buys **
 
 | Option | Topology | GPUs / VRAM | Cost | Perf | Stability | Score |
 |---|---|---|---:|---:|---:|---:|
-| Used-GPU build (no warranty) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU | 3 / 72 GB | $5,635 | 936 | 6.48 | 75.2 |
+| Used-GPU build (no warranty) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU | 3 / 72 GB | $5,866 | 969 | 6.35 | 75.2 |
 | No separate head (spend it on GPUs) | 2x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU (one node doubles as head) | 6 / 96 GB | $5,977 | 817 | 5.83 | 71.5 |
 | VRAM-first (24 GB per GPU) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 1x Custom MATX2 PC — Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU | 2 / 64 GB | $5,950 | 605 | 6.57 | 68.7 |
-| Best non-CUDA (AMD/Intel) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 2x Custom MATX2 PC — Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU | 4 / 64 GB | $5,782 | 1112 | 6.08 | 77.3 |
+| Best non-CUDA (AMD/Intel) | Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB) + 1x Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU | 4 / 80 GB | $5,849 | 1186 | 4.20 | 73.9 |
 
 The used-GPU build can score higher because it buys more raw compute per dollar. It is kept off the podium because it has no warranty and the model penalizes used hardware; choose it only if you accept that risk. The non-CUDA build scores highest of all but runs ROCm/SYCL, not the default Forge path; it is included for completeness, not as the stable pick.
 

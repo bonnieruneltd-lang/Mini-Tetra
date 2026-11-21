@@ -10,12 +10,12 @@ UPS and head redundancy, throws out anything that violates budget, power, chassi
 or software constraints, scores what remains, and then selects three builds with
 different design goals.
 
-## TL;DR — variant study (1,528 extra models)
+## TL;DR — variant study (1,817 extra models)
 
 | Pick | Build | Workers / VRAM | Cost | Perf | Stability |
 |---|---|---|---:|---:|---:|
 | **Best overall** | 3x RTX 5070 Ti 16 GB in one 4-slot ATX + MS-01 head | 3 / 48 GB | **$5,763** | 856 | 7.16/10 |
-| **Best raw power** | 2x RTX 5070 Ti 16 GB + RTX 5080 head in one 4-slot ATX | 3 / 48 GB | **$5,881** | 932 | 6.20/10 |
+| **Best raw power** | 3x RTX 4080 SUPER 16 GB in one 8-slot open frame + N305 head | 3 / 48 GB | **$5,952** | 998 | 6.05/10 |
 | **Most resilient** | 3x RTX 5060 Ti 16 GB in three mATX single-GPU nodes + MS-01 | 3 / 48 GB | **$5,727** | 499 | 8.88/10 |
 
 The baseline 44-SKU study is in [`reports/best3.md`](reports/best3.md): it picks
@@ -34,7 +34,7 @@ you want an interactive seat on the same box.
 
 ```bash
 make evaluate   # out/report.json, reports/best3.md, out/candidates.csv, reports/bom.csv
-make variants   # 1,528 extra models, power-first podium (~20 s)
+make variants   # 1,817 extra models, power-first podium (~35 s)
 make test       # 2,030 tests (~11 s)
 make fast       # console summary only (~3 s)
 ```
@@ -59,7 +59,7 @@ python3 -m minitetra.cli head-check --platform itx_sff --gpu rtx5060ti_16
 | Fabric | 1 GbE, 2.5 GbE, 10 GbE SFP+ |
 | Storage | per-node copies, 4 TB NVMe share, 8 TB mirrored NAS |
 | Resilience | single or HA head, UPS sized to 1.25x peak |
-| Extended study | +1,528 models (267 GPUs, 1,231 custom/mini platforms, 30 heads), 2.09M builds |
+| Extended study | +1,817 models (324 GPUs, 1,463 custom/mini platforms, 30 heads), 1.94M builds |
 
 Full run: **220,248 combinations considered**, 181,044 valid after physics and
 compatibility checks, 73,449 inside $6,000, 14,400 eligible for the podium
@@ -84,23 +84,23 @@ Run `--gpu-price-shock 1.15` to see the ranking under a 15% GPU price rise, and
 read the weight-sensitivity section of the report to see how the podium moves
 under throughput-first, stability-first and value-first weights.
 
-## Variant study (1,528 additional models)
+## Variant study (1,817 additional models)
 
-`make variants` adds 1,528 generated models — board-partner cards, used and
+`make variants` adds 1,817 generated models — board-partner cards, used and
 workstation GPUs, mini-PC families, used 4U servers, and a matrix of custom
 1–8 GPU PCs across six chassis types — then Pareto-prunes dominated hardware and
-searches **2,085,120** builds. Full results:
+searches **1,942,272** builds. Full results:
 [`reports/best3-variants.md`](reports/best3-variants.md).
 
 | Pick | Build | Workers / VRAM | Cost | Perf | Stability |
 |---|---|---|---:|---:|---:|
 | **Best overall** | 3x RTX 5070 Ti 16 GB in one 4-slot ATX + MS-01 head | 3 / 48 GB | **$5,763** | 856 | 7.16/10 |
-| **Best raw power** | 2x RTX 5070 Ti 16 GB + RTX 5080 head in one 4-slot ATX | 3 / 48 GB | **$5,881** | 932 | 6.20/10 |
+| **Best raw power** | 3x RTX 4080 SUPER 16 GB in one 8-slot open frame + N305 head | 3 / 48 GB | **$5,952** | 998 | 6.05/10 |
 | **Most resilient** | 3x RTX 5060 Ti 16 GB in three mATX single-GPU nodes + MS-01 | 3 / 48 GB | **$5,727** | 499 | 8.88/10 |
 
 The variant search changes the answer: one 4-slot custom PC with three 5070 Ti
 cards is ~32% more throughput than the base winner for less money, at the cost of
-putting all GPUs in one chassis. The 932-perf build is the throughput extreme but
+putting all GPUs in one chassis. The 998-perf build is the throughput extreme but
 is a 6.08-stability single-box design. The three-node mATX build is the uptime
 choice. A non-CUDA 4x RX 7900 GRE build reaches 1,112 perf for $5,707, but ROCm is
 not the stable Forge path, so it is reported as an alternative, not a
@@ -124,7 +124,7 @@ minitetra/
   model.py       cost, power, throughput, stability and score
   enumerate.py   exhaustive search, podium selection, head analysis
   report.py      JSON + Markdown + CSV report
-  variants.py    1,528 generated models + Pareto pruning
+  variants.py    1,817 generated models + Pareto pruning
   extended.py    variant search and power analysis
   cli.py         command line entry point
 tests/           19 invariants + 2,000 generated + 8 variant tests
@@ -135,7 +135,7 @@ deploy/
 reports/
   best3.md       generated podium with BOMs and head analysis
   bom.csv        BOM for the three picks, one row per line item
-  best3-variants.md  podium for the 1,528-model variant search
+  best3-variants.md  podium for the 1,817-model variant search
   bom-variants.csv   BOMs for the variant podium
   cluster-design.md  build guide, software stack and ops runbook
 out/

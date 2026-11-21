@@ -49,6 +49,9 @@ AIB = (
     ("oc", "OC Edition", 1.05, 1.02, 10),
     ("silent", "Silent Edition", 0.99, 0.99, -10),
     ("compact", "Compact Edition", 1.0, 0.98, -15),
+    ("reference", "Reference Design", 1.08, 1.02, 0),
+    ("turbo", "Turbo OC", 1.04, 1.03, 15),
+    ("lp", "Low-Profile", 1.02, 0.95, -20),
 )
 
 AIB_BASES = (
@@ -288,6 +291,15 @@ EXTRA_CPUS = (
     ("xeon_4310", "Xeon Silver 4310", 300, 120, 7),
     ("xeon_6248", "Xeon Gold 6248", 500, 150, 8),
     ("tr_7960x", "Threadripper 7960X", 1200, 350, 8),
+    ("r9_7950x3d", "Ryzen 9 7950X3D", 500, 120, 7),
+    ("r9_9950x3d", "Ryzen 9 9950X3D", 700, 170, 8),
+    ("r7_5800x3d", "Ryzen 7 5800X3D", 250, 105, 6),
+    ("i5_12400f", "Core i5-12400F", 120, 65, 5),
+    ("i7_14700f", "Core i7-14700F", 350, 180, 7),
+    ("i9_14900ks", "Core i9-14900KS", 650, 253, 8),
+    ("tr_7970x", "Threadripper 7970X", 1500, 350, 8),
+    ("epyc_7313", "EPYC 7313", 800, 155, 8),
+    ("xeon_w5", "Xeon w5-2455X", 900, 200, 8),
 )
 
 EXTRA_FORMS = {
@@ -309,6 +321,15 @@ EXTRA_FORMS = {
     "open2": dict(mobo=180, m2=1, case=60, idle=60, cooler=45, fans=50,
                   lan=2.5, slots=(2, 4, 6, 8), psus=(1000, 1600, 2000),
                   stability=0.1, kind="open", max_tdp=400),
+    "rack4ur": dict(mobo=500, m2=4, case=400, idle=80, cooler=90, fans=80,
+                    lan=10.0, slots=(2, 4), psus=(1300, 1600, 2000),
+                    stability=0.35, kind="rack", max_tdp=400),
+    "open8": dict(mobo=200, m2=1, case=80, idle=70, cooler=50, fans=80,
+                  lan=2.5, slots=(4, 6, 8), psus=(1600, 2000),
+                  stability=0.05, kind="open", max_tdp=400),
+    "edge1u": dict(mobo=400, m2=2, case=300, idle=50, cooler=60, fans=40,
+                   lan=10.0, slots=(1, 2), psus=(650, 850, 1000),
+                   stability=0.3, kind="rack", max_tdp=300),
 }
 
 EXTRA_CPU_SETS = {
@@ -320,6 +341,9 @@ EXTRA_CPU_SETS = {
     "rack4u2": (EXTRA_CPUS[2], EXTRA_CPUS[9], EXTRA_CPUS[10], EXTRA_CPUS[11]),
     "rack2u2": (EXTRA_CPUS[1], EXTRA_CPUS[5], EXTRA_CPUS[9], EXTRA_CPUS[11]),
     "open2": (EXTRA_CPUS[2], EXTRA_CPUS[6], EXTRA_CPUS[9], EXTRA_CPUS[11]),
+    "rack4ur": (EXTRA_CPUS[9], EXTRA_CPUS[10], EXTRA_CPUS[11], EXTRA_CPUS[15]),
+    "open8": (EXTRA_CPUS[0], EXTRA_CPUS[2], EXTRA_CPUS[4], EXTRA_CPUS[6]),
+    "edge1u": (EXTRA_CPUS[0], EXTRA_CPUS[2], EXTRA_CPUS[4], EXTRA_CPUS[8]),
 }
 
 EXTRA_RAM = ((16, 50), (32, 85), (64, 160))
