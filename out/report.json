@@ -1,7 +1,7 @@
 {
   "meta": {
     "name": "Mini-Tetra multi-Forge cluster study",
-    "generated_utc": "2026-11-21T06:05:35+00:00",
+    "generated_utc": "2026-11-21T06:49:13+00:00",
     "budget_usd": 6000,
     "price_basis": "USD street/retail estimates, Nov 2026, qty 1, tax/shipping excluded; assume +/-15% and re-run with --gpu-price-shock to test the ranking",
     "weights": {
@@ -18,7 +18,11 @@
       "heads": 9,
       "fabrics": 3,
       "storage": 3
-    }
+    },
+    "variants": null,
+    "pruning": null,
+    "variant_study": false,
+    "min_vram": 16
   },
   "exploration": {
     "considered": 220248,
@@ -26,6 +30,7 @@
     "within_budget": 73449,
     "eligible": 14400,
     "stats": {
+      "min_vram": 16,
       "by_fabric": {
         "1gbe": 26496,
         "2.5gbe": 25858,
@@ -83,7 +88,7 @@
       "stability": 8.27,
       "stability_notes": [
         "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -453,7 +458,7 @@
       "capability": 0.8375,
       "stability": 7.67,
       "stability_notes": [
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "HA head pair: queue and NFS survive a head failure",
         "UPS: prevents checkpoint/queue corruption on brownouts"
@@ -549,7 +554,7 @@
       "capability": 0.8375,
       "stability": 7.57,
       "stability_notes": [
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -639,7 +644,7 @@
       "stability": 8.17,
       "stability_notes": [
         "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -825,7 +830,7 @@
       "capability": 0.8375,
       "stability": 7.67,
       "stability_notes": [
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -914,7 +919,7 @@
       "capability": 0.8375,
       "stability": 7.37,
       "stability_notes": [
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -1090,7 +1095,7 @@
       "stability_notes": [
         "used GPU: no warranty and unknown fan hours; buy from a seller with returns",
         "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-        "two GPUs share one PSU per chassis",
+        "multiple GPUs share one PSU per chassis",
         "large fault domain: one node failure removes 2/4 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
@@ -1106,45 +1111,93 @@
       "bom": []
     },
     "vram_first": {
-      "signature": "ms01_head|itx_sff|rtxa5000_24|2x1|2.5gbe|shared_nvme|single|ups",
+      "signature": "n100|itx_dual|l4_24|1x2|2.5gbe|shared_nvme|single|ups",
       "head_mode": "dedicated",
-      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
-      "head_key": "ms01_head",
-      "platform": "Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU)",
-      "platform_key": "itx_sff",
-      "gpu": "RTX A5000 24 GB (used)",
-      "gpu_key": "rtxa5000_24",
-      "boxes": 2,
-      "gpus_per_box": 1,
+      "head": "Beelink EQ12 (N100, 16 GB, 500 GB)",
+      "head_key": "n100",
+      "platform": "Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX)",
+      "platform_key": "itx_dual",
+      "gpu": "NVIDIA L4 24 GB",
+      "gpu_key": "l4_24",
+      "boxes": 1,
+      "gpus_per_box": 2,
       "gpus_total": 2,
       "total_vram_gb": 48,
       "fabric": "2.5 GbE (8-port 2.5G switch)",
       "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
       "ha": false,
       "ups": true,
-      "total_cost_usd": 5632,
-      "peak_w": 803.0,
-      "idle_w": 110,
-      "ups_rating": "1500 VA / 1200 W",
-      "perf_index": 585.1,
+      "total_cost_usd": 5998,
+      "peak_w": 331.8,
+      "idle_w": 64,
+      "ups_rating": "1500 VA / 900 W",
+      "perf_index": 390.1,
       "capability": 0.8438,
-      "stability": 7.86,
+      "stability": 6.5,
       "stability_notes": [
-        "used GPU: no warranty and unknown fan hours; buy from a seller with returns",
-        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-        "large fault domain: one node failure removes 1/2 of the GPUs",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
         "UPS: prevents checkpoint/queue corruption on brownouts"
       ],
       "components": {
-        "throughput": 75.0,
+        "throughput": 62.0,
         "capability": 80.4,
-        "stability": 78.6,
-        "efficiency": 24.3,
-        "value": 41.6,
-        "expandability": 82.0
+        "stability": 65.0,
+        "efficiency": 39.2,
+        "value": 26.0,
+        "expandability": 67.0
       },
-      "score": 69.24,
-      "bom": []
+      "score": 60.21,
+      "bom": [
+        {
+          "label": "Head node: Beelink EQ12 (N100, 16 GB, 500 GB)",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX)",
+          "qty": 1,
+          "unit_usd": 980,
+          "total_usd": 980
+        },
+        {
+          "label": "GPU: NVIDIA L4 24 GB",
+          "qty": 2,
+          "unit_usd": 1900,
+          "total_usd": 3800
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 1500 VA / 900 W line-interactive",
+          "qty": 1,
+          "unit_usd": 170,
+          "total_usd": 170
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 392,
+          "total_usd": 392
+        }
+      ]
     }
   },
   "head_analysis": {
@@ -1463,7 +1516,7 @@
           "stability": 8.27,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -1543,7 +1596,7 @@
       {
         "label": "gpu +15%",
         "gpu_price_scale": 1.15,
-        "within_budget": 68738,
+        "within_budget": 19304,
         "best_cost": 5964,
         "best_score": 69.56,
         "best": {
@@ -1572,7 +1625,7 @@
           "stability": 7.67,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -1652,7 +1705,7 @@
       {
         "label": "gpu -15%",
         "gpu_price_scale": 0.85,
-        "within_budget": 78937,
+        "within_budget": 22030,
         "best_cost": 5600,
         "best_score": 71.75,
         "best": {
@@ -1681,7 +1734,7 @@
           "stability": 8.27,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -1798,7 +1851,7 @@
           "stability": 8.27,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -1888,7 +1941,7 @@
           "stability": 7.67,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -1978,7 +2031,7 @@
           "stability": 8.36,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -2086,7 +2139,7 @@
           "stability": 5.17,
           "stability_notes": [
             "head has a GPU: a driver reset or OOM also kills the queue",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/2 of the GPUs",
             "GPU runs at the chassis power limit (no transient headroom)",
             "PSU above 90% of rating at peak: shutdown risk",
@@ -2274,7 +2327,7 @@
           "stability": 5.27,
           "stability_notes": [
             "head has a GPU: a driver reset or OOM also kills the queue",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/2 of the GPUs",
             "GPU runs at the chassis power limit (no transient headroom)",
             "PSU above 90% of rating at peak: shutdown risk",
@@ -2390,7 +2443,7 @@
           "stability": 8.27,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -2480,7 +2533,7 @@
           "stability": 8.36,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -2570,7 +2623,7 @@
           "stability": 8.17,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -2678,7 +2731,7 @@
           "stability": 8.27,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],
@@ -2858,7 +2911,7 @@
           "stability": 7.67,
           "stability_notes": [
             "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
-            "two GPUs share one PSU per chassis",
+            "multiple GPUs share one PSU per chassis",
             "large fault domain: one node failure removes 2/4 of the GPUs",
             "UPS: prevents checkpoint/queue corruption on brownouts"
           ],

@@ -1,0 +1,25 @@
+pick,build_total_usd,item,qty,unit_usd,total_usd
+Best overall,5763,"Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",1,840,840
+Best overall,5763,"Worker chassis/CPU/RAM/SSD: Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",1,1240,1240
+Best overall,5763,GPU: GeForce RTX 5070 Ti 16 GB,3,860,2580
+Best overall,5763,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Best overall,5763,Network: cables/DACs,2,8,16
+Best overall,5763,"Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",1,260,260
+Best overall,5763,"UPS, 2000 VA / 1600 W line-interactive",1,330,330
+Best overall,5763,Contingency 7% (tax/shipping/price drift),1,377,377
+Best raw power,5881,Head node: Workstation head: ITX + RTX 5080 16 GB,1,1900,1900
+Best raw power,5881,"Worker chassis/CPU/RAM/SSD: Custom ATX2 PC — Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",1,1240,1240
+Best raw power,5881,GPU: GeForce RTX 5070 Ti 16 GB,2,860,1720
+Best raw power,5881,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Best raw power,5881,Network: cables/DACs,2,8,16
+Best raw power,5881,"Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",1,260,260
+Best raw power,5881,"UPS, 1500 VA / 1200 W line-interactive",1,240,240
+Best raw power,5881,Contingency 7% (tax/shipping/price drift),1,385,385
+Most resilient,5727,"Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",1,840,840
+Most resilient,5727,"Worker chassis/CPU/RAM/SSD: Custom MATX2 PC — Ryzen 5 5600, 16 GB, 1 TB, 650 W, 1 GPU",3,700,2100
+Most resilient,5727,GPU: GeForce RTX 5060 Ti 16 GB,3,500,1500
+Most resilient,5727,Network: 2.5 GbE (8-port 2.5G switch) - switch(es),1,120,120
+Most resilient,5727,Network: cables/DACs,4,8,32
+Most resilient,5727,Storage: 2x 4 TB NVMe RAID 0 cache,1,520,520
+Most resilient,5727,"UPS, 1500 VA / 1200 W line-interactive",1,240,240
+Most resilient,5727,Contingency 7% (tax/shipping/price drift),1,375,375

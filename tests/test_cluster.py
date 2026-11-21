@@ -124,7 +124,8 @@ class TestUnitRules(unittest.TestCase):
         self.assertEqual(psu_upgrade_cost(650, 500), 0)
         self.assertEqual(psu_upgrade_cost(650, 700), 60)
         self.assertEqual(psu_upgrade_cost(650, 950), 110)
-        self.assertIsNone(psu_upgrade_cost(650, 1400))
+        self.assertEqual(psu_upgrade_cost(650, 1400), 260)
+        self.assertIsNone(psu_upgrade_cost(650, 2400))
 
     def test_rejects_gpu_over_chassis_limit(self) -> None:
         self.assertIsNone(

@@ -6,12 +6,14 @@ import math
 from dataclasses import dataclass, field
 
 from .catalog import (
+    BASE_CATALOG,
     CONTINGENCY,
     FABRICS,
     GPUS,
     HEADS,
     PLATFORMS,
     STORAGE,
+    Catalog,
 )
 
 MAX_GPUS = 8
@@ -29,9 +31,9 @@ WEIGHTS = {
     "expandability": 0.08,
 }
 
-VRAM_CAP = {8: 0.55, 12: 0.80, 16: 0.95, 24: 1.00, 32: 1.05}
+VRAM_CAP = {6: 0.45, 8: 0.55, 10: 0.65, 11: 0.70, 12: 0.80, 16: 0.95, 20: 0.97, 24: 1.00, 32: 1.05, 40: 1.08, 48: 1.10, 80: 1.15}
 
-PSU_TIERS = ((650, 0), (850, 60), (1000, 110), (1300, 180))
+PSU_TIERS = ((650, 0), (850, 60), (1000, 110), (1300, 180), (1600, 260), (2000, 400))
 
 
 def ups_spec(peak_w: float) -> tuple[int, str]:
@@ -112,18 +114,19 @@ class Candidate:
     components: dict[str, float] = field(default_factory=dict)
     score: float = 0.0
     bom: tuple[BomLine, ...] = ()
+    catalog: Catalog = field(default=BASE_CATALOG, repr=False, compare=False)
 
     @property
     def head(self):
-        return HEADS[self.head_key] if self.head_key else None
+        return self.catalog.heads[self.head_key] if self.head_key else None
 
     @property
     def platform(self):
-        return PLATFORMS[self.platform_key]
+        return self.catalog.platforms[self.platform_key]
 
     @property
     def gpu(self):
-        return GPUS[self.gpu_key]
+        return self.catalog.gpus[self.gpu_key]
 
     @property
     def pure_mini(self) -> bool:
@@ -146,8 +149,8 @@ class Candidate:
             "gpus_per_box": self.gpus_per_box,
             "gpus_total": self.gpus_total,
             "total_vram_gb": self.total_vram_gb,
-            "fabric": FABRICS[self.fabric_key].name,
-            "storage": STORAGE[self.storage_key].name,
+            "fabric": self.catalog.fabrics[self.fabric_key].name,
+            "storage": self.catalog.storage[self.storage_key].name,
             "ha": self.ha,
             "ups": self.ups,
             "total_cost_usd": self.total_cost,
@@ -212,7 +215,7 @@ def _stability(c: Candidate, head, platform, gpu, fabric, storage) -> tuple[floa
 
     if c.gpus_per_box >= 2:
         score -= 0.15
-        notes.append("two GPUs share one PSU per chassis")
+        notes.append("multiple GPUs share one PSU per chassis")
     fault_share = c.gpus_per_box / c.gpus_total
     score -= 1.6 * fault_share
     if fault_share > 0.34:
@@ -281,8 +284,8 @@ def score_components(c: Candidate) -> dict[str, float]:
 def make_bom(c: Candidate) -> tuple[BomLine, ...]:
     platform = c.platform
     gpu = c.gpu
-    fabric = FABRICS[c.fabric_key]
-    storage = STORAGE[c.storage_key]
+    fabric = c.catalog.fabrics[c.fabric_key]
+    storage = c.catalog.storage[c.storage_key]
     lines: list[BomLine] = []
     if c.head is not None:
         lines.append(BomLine(f"Head node: {c.head.name}", 1, c.head.price))
@@ -322,12 +325,14 @@ def evaluate(
     ups: bool = True,
     gpu_price_scale: float = 1.0,
     detailed: bool = True,
+    catalog: Catalog | None = None,
 ) -> Candidate | None:
-    head = HEADS[head_key] if head_key else None
-    platform = PLATFORMS[platform_key]
-    gpu = GPUS[gpu_key]
-    fabric = FABRICS[fabric_key]
-    storage = STORAGE[storage_key]
+    cat = catalog or BASE_CATALOG
+    head = cat.heads[head_key] if head_key else None
+    platform = cat.platforms[platform_key]
+    gpu = cat.gpus[gpu_key]
+    fabric = cat.fabrics[fabric_key]
+    storage = cat.storage[storage_key]
 
     if boxes < 1 or boxes > MAX_BOXES:
         return None
@@ -456,6 +461,7 @@ def evaluate(
         capability=capability,
         stability=0.0,
         stability_notes=(),
+        catalog=cat,
     )
     c.stability, c.stability_notes = _stability(c, head, platform, gpu, fabric, storage)
     if detailed:

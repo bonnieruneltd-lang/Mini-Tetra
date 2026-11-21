@@ -10,6 +10,7 @@ candidate topologies, not as benchmark claims.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 PRICE_BASIS = (
@@ -330,3 +331,17 @@ STORAGE: dict[str, Storage] = {
 }
 
 CONTINGENCY = 0.07
+
+
+@dataclass(frozen=True)
+class Catalog:
+    """An immutable view of the hardware that a search may use."""
+
+    gpus: Mapping[str, Gpu]
+    platforms: Mapping[str, Platform]
+    heads: Mapping[str, HeadNode]
+    fabrics: Mapping[str, Fabric]
+    storage: Mapping[str, Storage]
+
+
+BASE_CATALOG = Catalog(GPUS, PLATFORMS, HEADS, FABRICS, STORAGE)

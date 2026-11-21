@@ -4,7 +4,7 @@ Budget **$6,000** · 220,248 build combinations enumerated · 181,044 valid afte
 
 Scoring: throughput 32%, GPU capability (VRAM) 18%, stability 22%, efficiency 8%, value 12%, expandability 8%. Prices: USD street/retail estimates, Nov 2026, qty 1, tax/shipping excluded; assume +/-15% and re-run with --gpu-price-shock to test the ranking.
 
-| Pick | Topology | GPUs / VRAM | Cost | Peak | Perf | Stability | Score |
+| Pick | Topology | Workers / total VRAM | Cost | Peak | Perf | Stability | Score |
 |---|---|---|---:|---:|---:|---:|---:|
 | Best overall | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 2x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX) | 4 / 64 GB | $5,921 | 1104 W | 648 | 8.27/10 | 71.5 |
 | Most resilient | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 3x Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU) | 3 / 48 GB | $5,673 | 1017 W | 499 | 8.69/10 | 67.4 |
@@ -15,7 +15,7 @@ Scoring: throughput 32%, GPU capability (VRAM) 18%, stability 22%, efficiency 8%
 Highest weighted score: the most aggregate 16 GB+ throughput and VRAM that fits the budget, circuit and compatibility limits.
 
 - Head: **Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)**
-- Workers: **2x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX)**, 2 GPU each
+- Workers: **2x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX)**, 2 GPU per chassis
 - Network: 2.5 GbE (8-port 2.5G switch) · Storage: 4 TB NVMe model cache in head, exported over NFS/SMB · UPS: yes · HA head: no
 - Peak draw: 1104 W · idle: 146 W
 - VRAM: 64 GB total, 0.84 capability index
@@ -34,7 +34,7 @@ Highest weighted score: the most aggregate 16 GB+ throughput and VRAM that fits 
 
 Stability notes:
 - head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O
-- two GPUs share one PSU per chassis
+- multiple GPUs share one PSU per chassis
 - large fault domain: one node failure removes 2/4 of the GPUs
 - UPS: prevents checkpoint/queue corruption on brownouts
 
@@ -43,7 +43,7 @@ Stability notes:
 Best score among builds with one GPU per chassis, at least three nodes and stability >= 8.5, so no single failure removes more than a third of the fleet.
 
 - Head: **Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)**
-- Workers: **3x Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU)**, 1 GPU each
+- Workers: **3x Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU)**, 1 GPU per chassis
 - Network: 2.5 GbE (8-port 2.5G switch) · Storage: 4 TB NVMe model cache in head, exported over NFS/SMB · UPS: yes · HA head: no
 - Peak draw: 1017 W · idle: 138 W
 - VRAM: 48 GB total, 0.81 capability index
@@ -69,7 +69,7 @@ Stability notes:
 Highest score among builds where every box is a NUC-class mini PC, there are at least three worker nodes and all hardware is new.
 
 - Head: **Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)**
-- Workers: **3x GMKtec K8 Plus (Ryzen 7 8845HS, 32 GB, 1 TB) + OCuLink dock**, 1 GPU each
+- Workers: **3x GMKtec K8 Plus (Ryzen 7 8845HS, 32 GB, 1 TB) + OCuLink dock**, 1 GPU per chassis
 - Network: 2.5 GbE (8-port 2.5G switch) · Storage: 4 TB NVMe model cache in head, exported over NFS/SMB · UPS: yes · HA head: no
 - Peak draw: 906 W · idle: 102 W
 - VRAM: 48 GB total, 0.81 capability index
@@ -127,17 +127,19 @@ If you drop the separate head and put that money into GPUs, about $5,889 buys **
 
 | Option | Topology | GPUs / VRAM | Cost | Perf | Stability | Score |
 |---|---|---|---:|---:|---:|---:|
-| Used-GPU value build | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 2x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX) | 4 / 64 GB | $5,911 | 630 | 8.05 | 70.7 |
+| Used-GPU build (no warranty) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 2x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX) | 4 / 64 GB | $5,911 | 630 | 8.05 | 70.7 |
 | No separate head (spend it on GPUs) | 3x Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU) (one node doubles as head) | 3 / 48 GB | $5,889 | 798 | 5.69 | 67.7 |
-| VRAM-first (24 GB per GPU) | Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+) + 2x Custom 8.5 L ITX node (Ryzen 5 7600, 32 GB, 1 TB, SFX PSU) | 2 / 48 GB | $5,632 | 585 | 7.86 | 69.2 |
+| VRAM-first (24 GB per GPU) | Beelink EQ12 (N100, 16 GB, 500 GB) + 1x Dual-GPU mATX cube (Ryzen 5, 32 GB, 2 TB, 1000 W ATX) | 2 / 48 GB | $5,998 | 390 | 6.50 | 60.2 |
+
+The used-GPU build can score higher because it buys more raw compute per dollar. It is kept off the podium because it has no warranty and the model penalizes used hardware; choose it only if you accept that risk. The non-CUDA build scores highest of all but runs ROCm/SYCL, not the default Forge path; it is included for completeness, not as the stable pick.
 
 ## Robustness
 
 | Scenario | In budget | Best cost | Best score | Same #1? |
 |---|---:|---:|---:|---|
 | base | 73,449 | $5,921 | 71.5 | yes |
-| gpu +15% | 68,738 | $5,964 | 69.6 | yes |
-| gpu -15% | 78,937 | $5,600 | 71.8 | yes |
+| gpu +15% | 19,304 | $5,964 | 69.6 | yes |
+| gpu -15% | 22,030 | $5,600 | 71.8 | yes |
 
 ### Weight sensitivity
 

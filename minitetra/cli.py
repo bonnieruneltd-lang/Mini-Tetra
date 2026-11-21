@@ -5,18 +5,33 @@ from __future__ import annotations
 import argparse
 import os
 
-from .enumerate import explore, select_winners
+from .enumerate import explore, select_power_winners, select_winners
 from .report import build_payload, write_reports
 
 
 def cmd_evaluate(args: argparse.Namespace) -> None:
+    if args.variants:
+        if args.json == "out/report.json":
+            args.json = "out/report-variants.json"
+        if args.markdown == "reports/best3.md":
+            args.markdown = "reports/best3-variants.md"
+        if args.csv == "out/candidates.csv":
+            args.csv = "out/candidates-variants.csv"
+        if args.bom_csv == "reports/bom.csv":
+            args.bom_csv = "reports/bom-variants.csv"
     os.makedirs(os.path.dirname(args.json) or ".", exist_ok=True)
     os.makedirs(os.path.dirname(args.markdown) or ".", exist_ok=True)
 
     if args.fast:
-        ex = explore(args.budget, gpu_price_scale=args.gpu_price_shock,
-                     keep=args.keep)
-        winners = select_winners(ex, args.top)
+        if args.variants:
+            from .extended import explore_extended
+            ex = explore_extended(args.budget, gpu_price_scale=args.gpu_price_shock,
+                                  keep=args.keep, max_boxes=4)
+            winners = select_power_winners(ex, args.top)
+        else:
+            ex = explore(args.budget, gpu_price_scale=args.gpu_price_shock,
+                         keep=args.keep)
+            winners = select_winners(ex, args.top)
         print(f"considered={ex.considered:,} valid={ex.valid:,} "
               f"within_budget={ex.within_budget:,}")
         for rank, (c, label, why) in enumerate(winners, 1):
@@ -27,8 +42,18 @@ def cmd_evaluate(args: argparse.Namespace) -> None:
             print(f"    {why}")
         return
 
-    payload = build_payload(args.budget, args.gpu_price_shock, args.top,
-                            args.csv, args.bom_csv)
+    if args.variants:
+        from .extended import explore_extended
+        ex = explore_extended(args.budget, gpu_price_scale=args.gpu_price_shock,
+                              keep=args.keep, max_boxes=4)
+        payload = build_payload(
+            args.budget, args.gpu_price_shock, args.top,
+            args.csv, args.bom_csv, ex=ex, power_pick=True,
+            scenarios=False, variant_stats=ex.stats["variants"],
+        )
+    else:
+        payload = build_payload(args.budget, args.gpu_price_shock, args.top,
+                                args.csv, args.bom_csv)
     write_reports(payload, args.json, args.markdown)
     ex = payload["exploration"]
     print(f"considered={ex['considered']:,} valid={ex['valid']:,} "
@@ -61,6 +86,8 @@ def main(argv: list[str] | None = None) -> int:
     ev.add_argument("--keep", type=int, default=2000)
     ev.add_argument("--gpu-price-shock", type=float, default=1.0)
     ev.add_argument("--fast", action="store_true", help="skip reports and scenarios")
+    ev.add_argument("--variants", action="store_true",
+                    help="search the 500+ extended model catalog")
     ev.set_defaults(func=cmd_evaluate)
 
     hd = sub.add_parser("head-check", help="compare head options for one fleet")

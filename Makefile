@@ -1,9 +1,12 @@
 PY ?= python3
 
-.PHONY: evaluate fast test head-check clean
+.PHONY: evaluate variants fast test head-check clean
 
 evaluate:
 	$(PY) -m minitetra.cli evaluate --json out/report.json --markdown reports/best3.md
+
+variants:
+	$(PY) -m minitetra.cli evaluate --variants
 
 fast:
 	$(PY) -m minitetra.cli evaluate --fast

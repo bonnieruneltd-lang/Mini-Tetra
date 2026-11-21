@@ -13,6 +13,7 @@ from .enumerate import (
     explore,
     head_ladder,
     head_mode_comparison,
+    select_power_winners,
     select_winners,
 )
 from .model import WEIGHTS
@@ -24,23 +25,41 @@ def build_payload(
     top: int = 3,
     csv_path: str | None = None,
     bom_path: str | None = None,
+    ex=None,
+    catalog=None,
+    power_pick: bool = False,
+    scenarios: bool = True,
+    variant_stats: dict | None = None,
 ) -> dict:
-    ex = explore(budget, gpu_price_scale=gpu_price_scale)
-    winners = select_winners(ex, top)
+    if ex is None:
+        ex = explore(budget, gpu_price_scale=gpu_price_scale, catalog=catalog)
+    cat = ex.catalog
+    winners = (select_power_winners(ex, top) if power_pick
+               else select_winners(ex, top))
     win = winners[0][0]
 
     ladder = head_ladder(win.platform_key, win.gpu_key, win.boxes, win.gpus_per_box,
-                         win.fabric_key, win.storage_key, win.ups, gpu_price_scale)
+                         win.fabric_key, win.storage_key, win.ups, gpu_price_scale,
+                         budget, catalog=cat)
 
-    comp_platform = "itx_sff" if win.gpu_key in PLATFORMS["itx_sff"].gpu_choices else win.platform_key
-    comparison = head_mode_comparison(comp_platform, win.gpu_key, win.fabric_key,
-                                      win.storage_key, gpu_price_scale=gpu_price_scale,
-                                      budget=budget)
+    comp_win = next(
+        (c for c, _, _ in winners if c.gpus_per_box == 1 and c.boxes >= 3),
+        win,
+    )
+    comparison = head_mode_comparison(comp_win.platform_key, comp_win.gpu_key,
+                                      comp_win.fabric_key, comp_win.storage_key,
+                                      gpu_price_scale=gpu_price_scale,
+                                      budget=budget, catalog=cat)
 
-    scenarios = []
+    scenario_rows = []
     for label, scale in (("base", 1.0), ("gpu +15%", 1.15), ("gpu -15%", 0.85)):
-        run = ex if scale == 1.0 else explore(budget, gpu_price_scale=scale)
-        scenarios.append({
+        if not scenarios:
+            break
+        run = ex if scale == 1.0 else explore(
+            budget, gpu_price_scale=scale, catalog=cat,
+            ups_options=(True,), ha_options=(False,),
+        )
+        scenario_rows.append({
             "label": label,
             "gpu_price_scale": scale,
             "within_budget": run.within_budget,
@@ -49,6 +68,7 @@ def build_payload(
             "best": run.best.summary(),
             "top10_signatures": [c.signature for c in run.top[:10]],
         })
+    scenarios = scenario_rows
 
     dedicated_wins = [r for r in comparison if r["verdict"].startswith("keep")]
     merge_wins = [r for r in comparison if r["verdict"] == "merge head into a worker"]
@@ -80,12 +100,16 @@ def build_payload(
             "price_basis": PRICE_BASIS,
             "weights": WEIGHTS,
             "catalog_sizes": {
-                "gpus": len(GPUS),
-                "worker_platforms": len(PLATFORMS),
-                "heads": len(HEADS),
-                "fabrics": len(FABRICS),
-                "storage": len(STORAGE),
+                "gpus": len(cat.gpus),
+                "worker_platforms": len(cat.platforms),
+                "heads": len(cat.heads),
+                "fabrics": len(cat.fabrics),
+                "storage": len(cat.storage),
             },
+            "variants": variant_stats or ex.stats.get("variants"),
+            "pruning": ex.stats.get("pruning"),
+            "variant_study": bool(variant_stats),
+            "min_vram": ex.stats.get("min_vram", 16),
         },
         "exploration": {
             "considered": ex.considered,
@@ -106,12 +130,15 @@ def build_payload(
             "mode_comparison": comparison,
             "dedicated_wins": len(dedicated_wins),
             "merge_wins": len(merge_wins),
-            "tested_platform": comp_platform,
+            "tested_platform": comp_win.platform_key,
             "best_homogeneous": alt.summary() if alt else None,
         },
         "robustness": {"scenarios": scenarios},
         "weight_sensitivity": weight_sensitivity(ex),
     }
+    if variant_stats:
+        from .extended import power_analysis
+        payload["power_analysis"] = power_analysis(ex)
     if csv_path:
         write_candidates_csv(ex, csv_path)
     if bom_path:
@@ -157,14 +184,18 @@ def render_markdown(payload: dict) -> str:
     ex = payload["exploration"]
     ha = payload["head_analysis"]
     lines: list[str] = []
-    lines.append("# Best 3 mini-Forge clusters")
+    title = ("# Best 3 mini-Forge clusters — variant study"
+             if meta.get("variant_study") else "# Best 3 mini-Forge clusters")
+    lines.append(title)
     lines.append("")
+    added = (meta.get("variants") or {}).get("total_added")
+    extra = f" · {added} additional models" if added else ""
     lines.append(
-        f"Budget **{_money(meta['budget_usd'])}** · "
+        f"Budget **{_money(meta['budget_usd'])}**{extra} · "
         f"{ex['considered']:,} build combinations enumerated · "
         f"{ex['valid']:,} valid after physics/compatibility checks · "
         f"{ex['within_budget']:,} inside budget · {ex['eligible']:,} eligible after baseline filters "
-        "(new hardware, UPS, ≥16 GB per GPU)."
+        f"(new hardware, UPS, ≥{meta.get('min_vram', 16)} GB per GPU)."
     )
     lines.append("")
     lines.append(
@@ -172,7 +203,7 @@ def render_markdown(payload: dict) -> str:
         "efficiency 8%, value 12%, expandability 8%. Prices: " + meta["price_basis"] + "."
     )
     lines.append("")
-    lines.append("| Pick | Topology | GPUs / VRAM | Cost | Peak | Perf | Stability | Score |")
+    lines.append("| Pick | Topology | Workers / total VRAM | Cost | Peak | Perf | Stability | Score |")
     lines.append("|---|---|---|---:|---:|---:|---:|---:|")
     for w in payload["winners"]:
         lines.append(
@@ -183,6 +214,29 @@ def render_markdown(payload: dict) -> str:
         )
     lines.append("")
 
+    power = payload.get("power_analysis")
+    if power:
+        lines.append("## Best power")
+        lines.append("")
+        lines.append("| Metric | Build | Workers / total VRAM | Cost | Perf | Perf/W | Stability |")
+        lines.append("|---|---|---|---:|---:|---:|---:|")
+        rows = (
+            ("Best raw power", power.get("best_raw_power")),
+            ("Best efficiency", power.get("best_efficiency")),
+            ("Best power at stability ≥ 8.5", power.get("best_power_at_high_stability")),
+        )
+        for label, c in rows:
+            if not c:
+                continue
+            watts = max(c["peak_w"], 1.0)
+            lines.append(
+                f"| {label} | {_topology(c)} | {c['gpus_total']} / "
+                f"{c['total_vram_gb']} GB | {_money(c['total_cost_usd'])} | "
+                f"{c['perf_index']:.0f} | {c['perf_index'] / watts:.2f} | "
+                f"{c['stability']:.2f} |"
+            )
+        lines.append("")
+
     for w in payload["winners"]:
         lines.append(
             f"## {w['label']}: {w['gpu']} x{w['gpus_total']} — {_money(w['total_cost_usd'])}"
@@ -191,7 +245,7 @@ def render_markdown(payload: dict) -> str:
         lines.append(w["rationale"])
         lines.append("")
         lines.append(f"- Head: **{w['head']}**")
-        lines.append(f"- Workers: **{w['boxes']}x {w['platform']}**, {w['gpus_per_box']} GPU each")
+        lines.append(f"- Workers: **{w['boxes']}x {w['platform']}**, {w['gpus_per_box']} GPU per chassis")
         lines.append(
             f"- Network: {w['fabric']} · Storage: {w['storage']} · "
             f"UPS: {'yes' if w['ups'] else 'no'} · HA head: {'yes' if w['ha'] else 'no'}"
@@ -215,6 +269,28 @@ def render_markdown(payload: dict) -> str:
             for note in w["stability_notes"]:
                 lines.append(f"- {note}")
             lines.append("")
+
+    variants = meta.get("variants")
+    if variants:
+        pruning = meta.get("pruning") or {}
+        lines.append("## Variant search")
+        lines.append("")
+        lines.append(
+            f"{variants['total_added']} additional models were generated: "
+            f"{variants['added_gpus']} GPUs, {variants['added_platforms']} worker "
+            f"platforms, {variants['added_heads']} heads. Dominance pruning kept "
+            f"{pruning.get('gpus_after')} GPUs, {pruning.get('platforms_after')} "
+            f"platforms and {pruning.get('heads_after')} heads; the rest were worse "
+            "on every axis (price, throughput, power, VRAM, slots or I/O)."
+        )
+        lines.append("")
+        lines.append(
+            "The variant search evaluated 2.5G, 5G, 10G and 25G networking with "
+            "shared NVMe, local NVMe and NVMe RAID storage; 1G, NAS and HA-head "
+            "options were already eliminated by the base study at this scale. It "
+            "evaluated every remaining GPU, slot count and fleet size."
+        )
+        lines.append("")
 
     lines.append("## Should the main PC be different?")
     lines.append("")
@@ -263,9 +339,10 @@ def render_markdown(payload: dict) -> str:
         lines.append("")
 
     alt_labels = {
-        "value_used": "Used-GPU value build",
+        "value_used": "Used-GPU build (no warranty)",
         "no_separate_head": "No separate head (spend it on GPUs)",
         "vram_first": "VRAM-first (24 GB per GPU)",
+        "non_cuda": "Best non-CUDA (AMD/Intel)",
     }
     alts = payload.get("alternatives") or {}
     if alts:
@@ -273,7 +350,7 @@ def render_markdown(payload: dict) -> str:
         lines.append("")
         lines.append("| Option | Topology | GPUs / VRAM | Cost | Perf | Stability | Score |")
         lines.append("|---|---|---|---:|---:|---:|---:|")
-        for key in ("value_used", "no_separate_head", "vram_first"):
+        for key in ("value_used", "no_separate_head", "vram_first", "non_cuda"):
             if key not in alts:
                 continue
             a = alts[key]
@@ -283,21 +360,37 @@ def render_markdown(payload: dict) -> str:
                 f"{a['perf_index']:.0f} | {a['stability']:.2f} | {a['score']:.1f} |"
             )
         lines.append("")
+        lines.append(
+            "The used-GPU build can score higher because it buys more raw compute "
+            "per dollar. It is kept off the podium because it has no warranty and "
+            "the model penalizes used hardware; choose it only if you accept that risk. "
+            "The non-CUDA build scores highest of all but runs ROCm/SYCL, not the "
+            "default Forge path; it is included for completeness, not as the stable pick."
+        )
+        lines.append("")
 
     lines.append("## Robustness")
     lines.append("")
-    lines.append("| Scenario | In budget | Best cost | Best score | Same #1? |")
-    lines.append("|---|---:|---:|---:|---|")
-    def topology(c: dict) -> tuple:
-        return (c["head_key"], c["platform_key"], c["gpu_key"], c["boxes"],
-                c["gpus_per_box"], c["head_mode"])
+    scenario_rows = payload["robustness"]["scenarios"]
+    if scenario_rows:
+        lines.append("| Scenario | In budget | Best cost | Best score | Same #1? |")
+        lines.append("|---|---:|---:|---:|---|")
 
-    base_topology = topology(payload["robustness"]["scenarios"][0]["best"])
-    for s in payload["robustness"]["scenarios"]:
-        same = "yes" if topology(s["best"]) == base_topology else "no"
+        def topology(c: dict) -> tuple:
+            return (c["head_key"], c["platform_key"], c["gpu_key"], c["boxes"],
+                    c["gpus_per_box"], c["head_mode"])
+
+        base_topology = topology(scenario_rows[0]["best"])
+        for s in scenario_rows:
+            same = "yes" if topology(s["best"]) == base_topology else "no"
+            lines.append(
+                f"| {s['label']} | {s['within_budget']:,} | {_money(s['best_cost'])} | "
+                f"{s['best_score']:.1f} | {same} |"
+            )
+    else:
         lines.append(
-            f"| {s['label']} | {s['within_budget']:,} | {_money(s['best_cost'])} | "
-            f"{s['best_score']:.1f} | {same} |"
+            "_Price-shock scenarios are skipped in the variant run; the base report "
+            "covers the +15%/-15% GPU cases._"
         )
     lines.append("")
     lines.append("### Weight sensitivity")
@@ -349,8 +442,8 @@ def write_candidates_csv(ex: Exploration, path: str, limit: int = 200) -> None:
                 c.total_vram_gb,
                 c.boxes,
                 c.gpus_per_box,
-                FABRICS[c.fabric_key].name,
-                STORAGE[c.storage_key].name,
+                c.catalog.fabrics[c.fabric_key].name,
+                c.catalog.storage[c.storage_key].name,
                 "yes" if c.ups else "no",
                 "yes" if c.ha else "no",
                 c.total_cost,

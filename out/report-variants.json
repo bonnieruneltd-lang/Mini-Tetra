@@ -1,0 +1,3008 @@
+{
+  "meta": {
+    "name": "Mini-Tetra multi-Forge cluster study",
+    "generated_utc": "2026-11-21T06:49:35+00:00",
+    "budget_usd": 6000,
+    "price_basis": "USD street/retail estimates, Nov 2026, qty 1, tax/shipping excluded; assume +/-15% and re-run with --gpu-price-shock to test the ranking",
+    "weights": {
+      "throughput": 0.32,
+      "capability": 0.18,
+      "stability": 0.22,
+      "efficiency": 0.08,
+      "value": 0.12,
+      "expandability": 0.08
+    },
+    "catalog_sizes": {
+      "gpus": 90,
+      "worker_platforms": 60,
+      "heads": 7,
+      "fabrics": 5,
+      "storage": 5
+    },
+    "variants": {
+      "base_gpus": 23,
+      "base_platforms": 12,
+      "base_heads": 9,
+      "added_gpus": 267,
+      "added_platforms": 1231,
+      "added_heads": 30,
+      "total_added": 1528
+    },
+    "pruning": {
+      "gpus_before": 290,
+      "gpus_after": 90,
+      "platforms_before": 1243,
+      "platforms_after": 60,
+      "heads_before": 39,
+      "heads_after": 7
+    },
+    "variant_study": true,
+    "min_vram": 16
+  },
+  "exploration": {
+    "considered": 2085120,
+    "valid": 1223472,
+    "within_budget": 407452,
+    "eligible": 91223,
+    "stats": {
+      "min_vram": 16,
+      "by_fabric": {
+        "2.5gbe": 124243,
+        "5gbe": 112196,
+        "10gbe": 99071,
+        "25gbe": 71942
+      },
+      "by_head_mode": {
+        "dedicated": 378717,
+        "homogeneous": 28735
+      },
+      "by_platform": {
+        "titan18": 77,
+        "nucxi9": 203,
+        "titan18v2": 71,
+        "macmini_m4": 320,
+        "minisforum_790m": 147,
+        "xopen2_r9_5950x_32g_1t_1600w_8g": 12023,
+        "dell_r730_32g": 13977,
+        "hp_z8g4_32g": 13032,
+        "xatx2_i5_13400_32g_1t_1000w_4g": 13485,
+        "xopen2_r9_5950x_32g_1t_1000w_4g": 13281,
+        "xatx2_r7_5700x3d_32g_1t_1000w_4g": 13115,
+        "supermicro_4u_32g": 11405,
+        "xopen2_tr_7960x_32g_1t_1600w_8g": 5490,
+        "xatx2_i5_13400_32g_1t_1300w_4g": 13157,
+        "xatx2_r7_5700x3d_32g_1t_1300w_4g": 12786,
+        "xatx2_r9_5950x_32g_1t_1000w_4g": 11998,
+        "xatx2_r9_5950x_32g_1t_1300w_4g": 11667,
+        "xatx2_i5_13400_32g_1t_1600w_4g": 11898,
+        "xatx2_r7_5700x3d_32g_1t_1600w_4g": 11586,
+        "lenovo_p360_32g": 13204,
+        "xatx2_r9_5950x_32g_1t_1600w_4g": 10632,
+        "xatx2_ultra9_285k_32g_1t_1000w_4g": 8956,
+        "xrack2u2_r7_5700x3d_32g_1t_1000w_4g": 9871,
+        "xatx2_ultra9_285k_32g_1t_1300w_4g": 8735,
+        "xrack2u2_r7_5700x3d_32g_1t_1300w_4g": 9617,
+        "xatx2_i5_13400_16g_1t_850w_1g": 7470,
+        "xatx2_r7_5700x3d_16g_1t_850w_1g": 7295,
+        "xatx2_i5_13400_32g_1t_850w_2g": 11161,
+        "k6": 5279,
+        "office_sff": 247,
+        "um760": 4983,
+        "xmatx2_r5_5600_16g_1t_650w_1g": 6598,
+        "xmatx2_r5_5600_32g_1t_650w_2g": 9875,
+        "itx_sff": 2417,
+        "xmatx2_r5_5600_16g_1t_850w_1g": 6411,
+        "xitx2_r5_5600_16g_1t_650w_1g": 5427,
+        "xitx2_i3_14100_16g_1t_650w_1g": 5381,
+        "itx_dual": 3035,
+        "xmatx2_r7_5700x3d_16g_1t_650w_1g": 6098,
+        "ms01": 1567,
+        "nuc13ext": 1632,
+        "atx_i9_14900k_32g_1t_1000w_2g": 7842,
+        "atx_i9_14900k_32g_1t_1300w_2g": 7716,
+        "atx_i9_14900k_32g_1t_1600w_2g": 7141,
+        "atx_i9_14900k_32g_1t_1600w_4g": 8547,
+        "xitx2_r5_5600_16g_1t_850w_1g": 5236,
+        "xitx2_r7_5700x3d_16g_1t_650w_1g": 5018,
+        "xitx2_r7_5700x3d_16g_1t_850w_1g": 4902,
+        "xitx2_r9_5950x_16g_1t_650w_1g": 4543,
+        "xitx2_r9_5950x_16g_1t_850w_1g": 4443,
+        "xitx2_i3_14100_16g_1t_850w_1g": 5196,
+        "xmatx2_r5_5600_16g_1t_1000w_1g": 6210,
+        "xmatx2_r5_5600_32g_1t_850w_2g": 9657,
+        "xmatx2_r5_5600_32g_1t_1000w_2g": 9418,
+        "xmatx2_r7_5700x3d_16g_1t_850w_1g": 5974
+      },
+      "max_score": 73.3766,
+      "median_top_score": 70.0667,
+      "variants": {
+        "base_gpus": 23,
+        "base_platforms": 12,
+        "base_heads": 9,
+        "added_gpus": 267,
+        "added_platforms": 1231,
+        "added_heads": 30,
+        "total_added": 1528
+      },
+      "pruning": {
+        "gpus_before": 290,
+        "gpus_after": 90,
+        "platforms_before": 1243,
+        "platforms_after": 60,
+        "heads_before": 39,
+        "heads_after": 7
+      }
+    }
+  },
+  "winners": [
+    {
+      "rank": 1,
+      "label": "Best overall",
+      "rationale": "Highest weighted score after the full variant search.",
+      "signature": "ms01_head|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 3,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5763,
+      "peak_w": 1073.0,
+      "idle_w": 120,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 855.5,
+      "capability": 0.8062,
+      "stability": 7.16,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/3 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 88.0,
+        "capability": 76.8,
+        "stability": 71.6,
+        "efficiency": 26.6,
+        "value": 59.4,
+        "expandability": 80.0
+      },
+      "score": 73.38,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1240,
+          "total_usd": 1240
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 3,
+          "unit_usd": 860,
+          "total_usd": 2580
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 377,
+          "total_usd": 377
+        }
+      ]
+    },
+    {
+      "rank": 2,
+      "label": "Best raw power",
+      "rationale": "Highest aggregate GPU index with stability >= 6.0; this is the build to pick when throughput matters more than uptime.",
+      "signature": "ws_5080|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x2|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 5080 16 GB",
+      "head_key": "ws_5080",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 2,
+      "gpus_total": 2,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5881,
+      "peak_w": 938.0,
+      "idle_w": 144,
+      "ups_rating": "1500 VA / 1200 W",
+      "perf_index": 931.6,
+      "capability": 0.8062,
+      "stability": 6.2,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 91.0,
+        "capability": 76.8,
+        "stability": 62.0,
+        "efficiency": 33.1,
+        "value": 63.4,
+        "expandability": 70.0
+      },
+      "score": 72.43,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 5080 16 GB",
+          "qty": 1,
+          "unit_usd": 1900,
+          "total_usd": 1900
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1240,
+          "total_usd": 1240
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 2,
+          "unit_usd": 860,
+          "total_usd": 1720
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 1500 VA / 1200 W line-interactive",
+          "qty": 1,
+          "unit_usd": 240,
+          "total_usd": 240
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 385,
+          "total_usd": 385
+        }
+      ]
+    },
+    {
+      "rank": 3,
+      "label": "Most resilient",
+      "rationale": "Best score among one-GPU-per-chassis builds with at least three nodes and stability >= 8.5.",
+      "signature": "ms01_head|xmatx2_r5_5600_16g_1t_650w_1g|rtx5060ti_16|3x1|2.5gbe|nvme_raid|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 650 W, 1 GPU",
+      "platform_key": "xmatx2_r5_5600_16g_1t_650w_1g",
+      "gpu": "GeForce RTX 5060 Ti 16 GB",
+      "gpu_key": "rtx5060ti_16",
+      "boxes": 3,
+      "gpus_per_box": 1,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "2x 4 TB NVMe RAID 0 cache",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5727,
+      "peak_w": 945.0,
+      "idle_w": 156,
+      "ups_rating": "1500 VA / 1200 W",
+      "perf_index": 499.1,
+      "capability": 0.8062,
+      "stability": 8.88,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 69.8,
+        "capability": 76.8,
+        "stability": 88.8,
+        "efficiency": 17.6,
+        "value": 34.9,
+        "expandability": 87.0
+      },
+      "score": 68.24,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 650 W, 1 GPU",
+          "qty": 3,
+          "unit_usd": 700,
+          "total_usd": 2100
+        },
+        {
+          "label": "GPU: GeForce RTX 5060 Ti 16 GB",
+          "qty": 3,
+          "unit_usd": 500,
+          "total_usd": 1500
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 4,
+          "unit_usd": 8,
+          "total_usd": 32
+        },
+        {
+          "label": "Storage: 2x 4 TB NVMe RAID 0 cache",
+          "qty": 1,
+          "unit_usd": 520,
+          "total_usd": 520
+        },
+        {
+          "label": "UPS, 1500 VA / 1200 W line-interactive",
+          "qty": 1,
+          "unit_usd": 240,
+          "total_usd": 240
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 375,
+          "total_usd": 375
+        }
+      ]
+    }
+  ],
+  "runner_up": [
+    {
+      "signature": "ws_3090|xatx2_i5_13400_32g_1t_1600w_4g|rtx5060ti_16|1x4|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 3090 24 GB",
+      "head_key": "ws_3090",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5060 Ti 16 GB",
+      "gpu_key": "rtx5060ti_16",
+      "boxes": 1,
+      "gpus_per_box": 4,
+      "gpus_total": 4,
+      "total_vram_gb": 88,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5913,
+      "peak_w": 1052.0,
+      "idle_w": 151,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 929.5,
+      "capability": 0.8844,
+      "stability": 6.07,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 4/4 of the GPUs",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 90.9,
+        "capability": 84.2,
+        "stability": 60.7,
+        "efficiency": 29.5,
+        "value": 62.9,
+        "expandability": 70.0
+      },
+      "score": 73.11,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+          "qty": 1,
+          "unit_usd": 1560,
+          "total_usd": 1560
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1240,
+          "total_usd": 1240
+        },
+        {
+          "label": "GPU: GeForce RTX 5060 Ti 16 GB",
+          "qty": 4,
+          "unit_usd": 500,
+          "total_usd": 2000
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 387,
+          "total_usd": 387
+        }
+      ]
+    },
+    {
+      "signature": "ws_3090|xmatx2_r5_5600_16g_1t_1000w_1g|rtx5070ti_16|2x1|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 3090 24 GB",
+      "head_key": "ws_3090",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 1000 W, 1 GPU",
+      "platform_key": "xmatx2_r5_5600_16g_1t_1000w_1g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 2,
+      "gpus_per_box": 1,
+      "gpus_total": 2,
+      "total_vram_gb": 56,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5964,
+      "peak_w": 1038.0,
+      "idle_w": 159,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 884.1,
+      "capability": 0.8219,
+      "stability": 6.78,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "large fault domain: one node failure removes 1/2 of the GPUs",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 89.1,
+        "capability": 78.3,
+        "stability": 67.8,
+        "efficiency": 28.4,
+        "value": 59.3,
+        "expandability": 77.0
+      },
+      "score": 73.09,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+          "qty": 1,
+          "unit_usd": 1560,
+          "total_usd": 1560
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 1000 W, 1 GPU",
+          "qty": 2,
+          "unit_usd": 780,
+          "total_usd": 1560
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 2,
+          "unit_usd": 860,
+          "total_usd": 1720
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 3,
+          "unit_usd": 8,
+          "total_usd": 24
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 390,
+          "total_usd": 390
+        }
+      ]
+    },
+    {
+      "signature": "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 3090 24 GB",
+      "head_key": "ws_3090",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1300w_4g",
+      "gpu": "GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+      "gpu_key": "rtx5080_16_zotac",
+      "boxes": 1,
+      "gpus_per_box": 2,
+      "gpus_total": 2,
+      "total_vram_gb": 56,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5949,
+      "peak_w": 1042.5,
+      "idle_w": 159,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 1032.5,
+      "capability": 0.8219,
+      "stability": 5.51,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 94.6,
+        "capability": 78.3,
+        "stability": 55.1,
+        "efficiency": 33.0,
+        "value": 69.4,
+        "expandability": 70.0
+      },
+      "score": 73.06,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+          "qty": 1,
+          "unit_usd": 1560,
+          "total_usd": 1560
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1090,
+          "total_usd": 1090
+        },
+        {
+          "label": "GPU: GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+          "qty": 2,
+          "unit_usd": 1092,
+          "total_usd": 2184
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 389,
+          "total_usd": 389
+        }
+      ]
+    },
+    {
+      "signature": "ms01_head|xatx2_r9_5950x_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom ATX2 PC \u2014 Ryzen 9 5950X, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_r9_5950x_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 3,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5913,
+      "peak_w": 1113.0,
+      "idle_w": 120,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 855.5,
+      "capability": 0.8062,
+      "stability": 7.11,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/3 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 88.0,
+        "capability": 76.8,
+        "stability": 71.1,
+        "efficiency": 25.6,
+        "value": 57.9,
+        "expandability": 80.0
+      },
+      "score": 73.01,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Ryzen 9 5950X, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1380,
+          "total_usd": 1380
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 3,
+          "unit_usd": 860,
+          "total_usd": 2580
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 387,
+          "total_usd": 387
+        }
+      ]
+    },
+    {
+      "signature": "ms01_head|xatx2_r7_5700x3d_32g_1t_1600w_4g|rtx5070ti_16|1x3|5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_r7_5700x3d_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 3,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "5 GbE (8-port 5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5976,
+      "peak_w": 1113.0,
+      "idle_w": 120,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 867.9,
+      "capability": 0.8062,
+      "stability": 7.01,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/3 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 88.5,
+        "capability": 76.8,
+        "stability": 70.1,
+        "efficiency": 26.0,
+        "value": 58.1,
+        "expandability": 80.0
+      },
+      "score": 73.01,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1260,
+          "total_usd": 1260
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 3,
+          "unit_usd": 860,
+          "total_usd": 2580
+        },
+        {
+          "label": "Network: 5 GbE (8-port 5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 250,
+          "total_usd": 250
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 10,
+          "total_usd": 20
+        },
+        {
+          "label": "Network: 2.5G/10G adapters",
+          "qty": 1,
+          "unit_usd": 45,
+          "total_usd": 45
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 391,
+          "total_usd": 391
+        }
+      ]
+    },
+    {
+      "signature": "ws_3090|xmatx2_r5_5600_16g_1t_850w_1g|rtx5070ti_16|2x1|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 3090 24 GB",
+      "head_key": "ws_3090",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 850 W, 1 GPU",
+      "platform_key": "xmatx2_r5_5600_16g_1t_850w_1g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 2,
+      "gpus_per_box": 1,
+      "gpus_total": 2,
+      "total_vram_gb": 56,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5879,
+      "peak_w": 1038.0,
+      "idle_w": 159,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 884.1,
+      "capability": 0.8219,
+      "stability": 6.69,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "large fault domain: one node failure removes 1/2 of the GPUs",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 89.1,
+        "capability": 78.3,
+        "stability": 66.9,
+        "efficiency": 28.4,
+        "value": 60.2,
+        "expandability": 77.0
+      },
+      "score": 72.98,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+          "qty": 1,
+          "unit_usd": 1560,
+          "total_usd": 1560
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 16 GB, 1 TB, 850 W, 1 GPU",
+          "qty": 2,
+          "unit_usd": 740,
+          "total_usd": 1480
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 2,
+          "unit_usd": 860,
+          "total_usd": 1720
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 3,
+          "unit_usd": 8,
+          "total_usd": 24
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 385,
+          "total_usd": 385
+        }
+      ]
+    },
+    {
+      "signature": "ms01_head|xatx2_i5_13400_32g_1t_1000w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1000w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 3,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5806,
+      "peak_w": 1073.0,
+      "idle_w": 120,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 855.5,
+      "capability": 0.8062,
+      "stability": 7.0,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/3 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 88.0,
+        "capability": 76.8,
+        "stability": 70.0,
+        "efficiency": 26.6,
+        "value": 58.9,
+        "expandability": 80.0
+      },
+      "score": 72.98,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1020,
+          "total_usd": 1020
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 3,
+          "unit_usd": 860,
+          "total_usd": 2580
+        },
+        {
+          "label": "PSU upgrade",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 380,
+          "total_usd": 380
+        }
+      ]
+    }
+  ],
+  "alternatives": {
+    "no_separate_head": {
+      "signature": "HOM|xatx2_i5_13400_32g_1t_1000w_4g|rtx4060ti_16|2x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "homogeneous",
+      "head": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU (first node doubles as head)",
+      "head_key": null,
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1000w_4g",
+      "gpu": "GeForce RTX 4060 Ti 16 GB",
+      "gpu_key": "rtx4060ti_16",
+      "boxes": 2,
+      "gpus_per_box": 3,
+      "gpus_total": 6,
+      "total_vram_gb": 96,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5977,
+      "peak_w": 1196.5,
+      "idle_w": 168,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 817.2,
+      "capability": 0.9,
+      "stability": 5.83,
+      "stability_notes": [
+        "homogeneous head: Forge load shares CPU/RAM with the scheduler",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/6 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 86.4,
+        "capability": 85.7,
+        "stability": 58.3,
+        "efficiency": 22.8,
+        "value": 54.7,
+        "expandability": 90.0
+      },
+      "score": 71.5,
+      "bom": [
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+          "qty": 2,
+          "unit_usd": 1020,
+          "total_usd": 2040
+        },
+        {
+          "label": "GPU: GeForce RTX 4060 Ti 16 GB",
+          "qty": 6,
+          "unit_usd": 470,
+          "total_usd": 2820
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 391,
+          "total_usd": 391
+        }
+      ]
+    },
+    "vram_first": {
+      "signature": "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5000ada_32|1x2|2.5gbe|local|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+      "platform_key": "xmatx2_r5_5600_32g_1t_1000w_2g",
+      "gpu": "RTX 5000 Ada 32 GB",
+      "gpu_key": "rtx5000ada_32",
+      "boxes": 1,
+      "gpus_per_box": 2,
+      "gpus_total": 2,
+      "total_vram_gb": 64,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "Per-node NVMe, models duplicated",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5950,
+      "peak_w": 679.0,
+      "idle_w": 88,
+      "ups_rating": "1500 VA / 900 W",
+      "perf_index": 605.4,
+      "capability": 0.9125,
+      "stability": 6.57,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 76.2,
+        "capability": 86.9,
+        "stability": 65.7,
+        "efficiency": 29.7,
+        "value": 40.7,
+        "expandability": 87.0
+      },
+      "score": 68.69,
+      "bom": []
+    },
+    "non_cuda": {
+      "signature": "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rx7900gre_16|2x2|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+      "platform_key": "xmatx2_r5_5600_32g_1t_1000w_2g",
+      "gpu": "Radeon RX 7900 GRE 16 GB",
+      "gpu_key": "rx7900gre_16",
+      "boxes": 2,
+      "gpus_per_box": 2,
+      "gpus_total": 4,
+      "total_vram_gb": 64,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5782,
+      "peak_w": 1306.0,
+      "idle_w": 158,
+      "ups_rating": "2200 VA / 1980 W",
+      "perf_index": 1111.6,
+      "capability": 0.8375,
+      "stability": 6.08,
+      "stability_notes": [
+        "AMD ROCm: works, but needs driver/version pinning",
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/4 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 97.3,
+        "capability": 79.8,
+        "stability": 60.8,
+        "efficiency": 28.4,
+        "value": 76.9,
+        "expandability": 87.0
+      },
+      "score": 77.31,
+      "bom": []
+    },
+    "value_used": {
+      "signature": "ms01_head|xatx2_i5_13400_32g_1t_1000w_4g|rtx3090_24_zotac|1x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1000w_4g",
+      "gpu": "GeForce RTX 3090 24 GB (used) \u2014 Zotac Twin Edge",
+      "gpu_key": "rtx3090_24_zotac",
+      "boxes": 1,
+      "gpus_per_box": 3,
+      "gpus_total": 3,
+      "total_vram_gb": 72,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5635,
+      "peak_w": 1201.2,
+      "idle_w": 150,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 936.5,
+      "capability": 0.8906,
+      "stability": 6.48,
+      "stability_notes": [
+        "used GPU: no warranty and unknown fan hours; buy from a seller with returns",
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/3 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 91.2,
+        "capability": 84.8,
+        "stability": 64.8,
+        "efficiency": 26.0,
+        "value": 66.5,
+        "expandability": 80.0
+      },
+      "score": 75.16,
+      "bom": []
+    }
+  },
+  "head_analysis": {
+    "verdict": "Yes, but differentiate it by role, not by GPU. At an equal GPU count a dedicated non-GPU head costs about $908 more and adds about 2.4 stability points; it wins on score at every fleet size tested because a head that also renders shares its CPU, RAM and driver stack with the queue. A GPU in the head looks cheaper per GPU, but it puts the scheduler inside a GPU failure domain; it is worth it only if you want an interactive seat on the same box.",
+    "ladder": [
+      {
+        "head_key": "ms01_head",
+        "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+        "head_kind": "mini",
+        "mode": "dedicated",
+        "head_cost": 840,
+        "total_cost": 5763,
+        "perf_index": 855.5,
+        "stability": 7.16,
+        "score": 73.38,
+        "within_budget": true
+      },
+      {
+        "head_key": "um890_head",
+        "head": "Minisforum UM890 Pro (Ryzen 9 8945HS, 32 GB, 1 TB)",
+        "head_kind": "mini",
+        "mode": "dedicated",
+        "head_cost": 640,
+        "total_cost": 5549,
+        "perf_index": 855.5,
+        "stability": 6.46,
+        "score": 71.36,
+        "within_budget": true
+      },
+      {
+        "head_key": "n305",
+        "head": "Beelink EQ12 Pro (i3-N305, 16 GB, 500 GB)",
+        "head_kind": "mini",
+        "mode": "dedicated",
+        "head_cost": 400,
+        "total_cost": 5292,
+        "perf_index": 855.5,
+        "stability": 6.16,
+        "score": 71.11,
+        "within_budget": true
+      },
+      {
+        "head_key": "ws_5080",
+        "head": "Workstation head: ITX + RTX 5080 16 GB",
+        "head_kind": "workstation",
+        "mode": "dedicated",
+        "head_cost": 1900,
+        "total_cost": 6897,
+        "perf_index": 1185.7,
+        "stability": 5.76,
+        "score": 75.32,
+        "within_budget": false
+      },
+      {
+        "head_key": "ws_3090",
+        "head": "Workstation head: ITX + RTX 3090 24 GB",
+        "head_kind": "workstation",
+        "mode": "dedicated",
+        "head_cost": 1560,
+        "total_cost": 6533,
+        "perf_index": 1139.4,
+        "stability": 5.76,
+        "score": 75.15,
+        "within_budget": false
+      },
+      {
+        "head_key": "ws_4060ti",
+        "head": "Workstation head: ITX base + RTX 4060 Ti 16 GB",
+        "head_kind": "workstation",
+        "mode": "dedicated",
+        "head_cost": 1240,
+        "total_cost": 6191,
+        "perf_index": 977.3,
+        "stability": 5.96,
+        "score": 72.52,
+        "within_budget": false
+      },
+      {
+        "head_key": "ws_5070",
+        "head": "Workstation head: ITX + RTX 5070 12 GB",
+        "head_kind": "workstation",
+        "mode": "dedicated",
+        "head_cost": 1360,
+        "total_cost": 6319,
+        "perf_index": 1032.9,
+        "stability": 5.86,
+        "score": 71.24,
+        "within_budget": false
+      }
+    ],
+    "mode_comparison": [
+      {
+        "gpus": 2,
+        "dedicated_head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+        "dedicated_cost": 4359,
+        "dedicated_score": 62.85,
+        "dedicated_stability": 8.61,
+        "dedicated_perf": 341.3,
+        "dedicated_in_budget": true,
+        "gpu_head": "Workstation head: ITX + RTX 5080 16 GB",
+        "gpu_head_cost": 5568,
+        "gpu_head_score": 69.97,
+        "gpu_head_stability": 7.21,
+        "gpu_head_perf": 693.9,
+        "homogeneous_cost": 3452,
+        "homogeneous_score": 58.89,
+        "homogeneous_stability": 6.26,
+        "homogeneous_perf": 341.3,
+        "homogeneous_in_budget": true,
+        "delta_score": 3.96,
+        "delta_stability": 2.35,
+        "delta_cost": 907,
+        "verdict": "keep head separate (reliability wins)"
+      },
+      {
+        "gpus": 3,
+        "dedicated_head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+        "dedicated_cost": 5727,
+        "dedicated_score": 68.24,
+        "dedicated_stability": 8.88,
+        "dedicated_perf": 499.1,
+        "dedicated_in_budget": true,
+        "gpu_head": "Workstation head: ITX + RTX 5080 16 GB",
+        "gpu_head_cost": 6957,
+        "gpu_head_score": 72.73,
+        "gpu_head_stability": 7.48,
+        "gpu_head_perf": 838.3,
+        "homogeneous_cost": 4819,
+        "homogeneous_score": 64.01,
+        "homogeneous_stability": 6.53,
+        "homogeneous_perf": 499.1,
+        "homogeneous_in_budget": true,
+        "delta_score": 4.23,
+        "delta_stability": 2.35,
+        "delta_cost": 908,
+        "verdict": "keep head separate (reliability wins)"
+      },
+      {
+        "gpus": 4,
+        "dedicated_head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+        "dedicated_cost": 7116,
+        "dedicated_score": 72.04,
+        "dedicated_stability": 9.01,
+        "dedicated_perf": 648.4,
+        "dedicated_in_budget": false,
+        "gpu_head": "Workstation head: ITX + RTX 5080 16 GB",
+        "gpu_head_cost": 8378,
+        "gpu_head_score": 74.89,
+        "gpu_head_stability": 7.61,
+        "gpu_head_perf": 974.6,
+        "homogeneous_cost": 6208,
+        "homogeneous_score": 67.62,
+        "homogeneous_stability": 6.66,
+        "homogeneous_perf": 648.4,
+        "homogeneous_in_budget": false,
+        "delta_score": 4.42,
+        "delta_stability": 2.35,
+        "delta_cost": 908,
+        "verdict": "keep head separate (reliability wins)"
+      },
+      {
+        "gpus": 6,
+        "dedicated_head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+        "dedicated_cost": 9829,
+        "dedicated_score": 75.19,
+        "dedicated_stability": 8.15,
+        "dedicated_perf": 922.7,
+        "dedicated_in_budget": false,
+        "gpu_head": null,
+        "gpu_head_cost": null,
+        "gpu_head_score": null,
+        "gpu_head_stability": null,
+        "gpu_head_perf": null,
+        "homogeneous_cost": 8922,
+        "homogeneous_score": 70.55,
+        "homogeneous_stability": 5.8,
+        "homogeneous_perf": 922.7,
+        "homogeneous_in_budget": false,
+        "delta_score": 4.64,
+        "delta_stability": 2.35,
+        "delta_cost": 907,
+        "verdict": "keep head separate (reliability wins)"
+      }
+    ],
+    "dedicated_wins": 4,
+    "merge_wins": 0,
+    "tested_platform": "xmatx2_r5_5600_16g_1t_650w_1g",
+    "best_homogeneous": {
+      "signature": "HOM|xatx2_i5_13400_32g_1t_1000w_4g|rtx4060ti_16|2x3|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "homogeneous",
+      "head": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU (first node doubles as head)",
+      "head_key": null,
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1000w_4g",
+      "gpu": "GeForce RTX 4060 Ti 16 GB",
+      "gpu_key": "rtx4060ti_16",
+      "boxes": 2,
+      "gpus_per_box": 3,
+      "gpus_total": 6,
+      "total_vram_gb": 96,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5977,
+      "peak_w": 1196.5,
+      "idle_w": 168,
+      "ups_rating": "2000 VA / 1600 W",
+      "perf_index": 817.2,
+      "capability": 0.9,
+      "stability": 5.83,
+      "stability_notes": [
+        "homogeneous head: Forge load shares CPU/RAM with the scheduler",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 3/6 of the GPUs",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 86.4,
+        "capability": 85.7,
+        "stability": 58.3,
+        "efficiency": 22.8,
+        "value": 54.7,
+        "expandability": 90.0
+      },
+      "score": 71.5,
+      "bom": [
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1000 W, 4 GPU",
+          "qty": 2,
+          "unit_usd": 1020,
+          "total_usd": 2040
+        },
+        {
+          "label": "GPU: GeForce RTX 4060 Ti 16 GB",
+          "qty": 6,
+          "unit_usd": 470,
+          "total_usd": 2820
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 2000 VA / 1600 W line-interactive",
+          "qty": 1,
+          "unit_usd": 330,
+          "total_usd": 330
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 391,
+          "total_usd": 391
+        }
+      ]
+    }
+  },
+  "robustness": {
+    "scenarios": []
+  },
+  "weight_sensitivity": [
+    {
+      "variant": "default",
+      "weights": {
+        "throughput": 0.32,
+        "capability": 0.18,
+        "stability": 0.22,
+        "efficiency": 0.08,
+        "value": 0.12,
+        "expandability": 0.08
+      },
+      "top": [
+        {
+          "signature": "ms01_head|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+          "gpu": "GeForce RTX 5070 Ti 16 GB",
+          "gpu_key": "rtx5070ti_16",
+          "boxes": 1,
+          "gpus_per_box": 3,
+          "gpus_total": 3,
+          "total_vram_gb": 48,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5763,
+          "peak_w": 1073.0,
+          "idle_w": 120,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 855.5,
+          "capability": 0.8062,
+          "stability": 7.16,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 3/3 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 88.0,
+            "capability": 76.8,
+            "stability": 71.6,
+            "efficiency": 26.6,
+            "value": 59.4,
+            "expandability": 80.0
+          },
+          "score": 73.38,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1240,
+              "total_usd": 1240
+            },
+            {
+              "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+              "qty": 3,
+              "unit_usd": 860,
+              "total_usd": 2580
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 377,
+              "total_usd": 377
+            }
+          ]
+        },
+        {
+          "signature": "ms01_head|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x3|5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+          "gpu": "GeForce RTX 5070 Ti 16 GB",
+          "gpu_key": "rtx5070ti_16",
+          "boxes": 1,
+          "gpus_per_box": 3,
+          "gpus_total": 3,
+          "total_vram_gb": 48,
+          "fabric": "5 GbE (8-port 5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5955,
+          "peak_w": 1073.0,
+          "idle_w": 120,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 867.9,
+          "capability": 0.8062,
+          "stability": 7.06,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 3/3 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 88.5,
+            "capability": 76.8,
+            "stability": 70.6,
+            "efficiency": 27.0,
+            "value": 58.3,
+            "expandability": 80.0
+          },
+          "score": 73.22,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1240,
+              "total_usd": 1240
+            },
+            {
+              "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+              "qty": 3,
+              "unit_usd": 860,
+              "total_usd": 2580
+            },
+            {
+              "label": "Network: 5 GbE (8-port 5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 250,
+              "total_usd": 250
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 10,
+              "total_usd": 20
+            },
+            {
+              "label": "Network: 2.5G/10G adapters",
+              "qty": 1,
+              "unit_usd": 45,
+              "total_usd": 45
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 390,
+              "total_usd": 390
+            }
+          ]
+        },
+        {
+          "signature": "ms01_head|xatx2_r7_5700x3d_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "platform_key": "xatx2_r7_5700x3d_32g_1t_1600w_4g",
+          "gpu": "GeForce RTX 5070 Ti 16 GB",
+          "gpu_key": "rtx5070ti_16",
+          "boxes": 1,
+          "gpus_per_box": 3,
+          "gpus_total": 3,
+          "total_vram_gb": 48,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5784,
+          "peak_w": 1113.0,
+          "idle_w": 120,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 855.5,
+          "capability": 0.8062,
+          "stability": 7.11,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 3/3 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 88.0,
+            "capability": 76.8,
+            "stability": 71.1,
+            "efficiency": 25.6,
+            "value": 59.2,
+            "expandability": 80.0
+          },
+          "score": 73.16,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1600 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1260,
+              "total_usd": 1260
+            },
+            {
+              "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+              "qty": 3,
+              "unit_usd": 860,
+              "total_usd": 2580
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 378,
+              "total_usd": 378
+            }
+          ]
+        }
+      ],
+      "top_signatures": [
+        "ms01_head|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups",
+        "ms01_head|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x3|5gbe|shared_nvme|single|ups",
+        "ms01_head|xatx2_r7_5700x3d_32g_1t_1600w_4g|rtx5070ti_16|1x3|2.5gbe|shared_nvme|single|ups"
+      ]
+    },
+    {
+      "variant": "throughput-first",
+      "weights": {
+        "throughput": 0.45,
+        "capability": 0.18,
+        "stability": 0.15,
+        "efficiency": 0.08,
+        "value": 0.12,
+        "expandability": 0.08
+      },
+      "top": [
+        {
+          "signature": "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+          "gpu_key": "rtx5080_16_zotac",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5949,
+          "peak_w": 1042.5,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1032.5,
+          "capability": 0.8219,
+          "stability": 5.51,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.6,
+            "capability": 78.3,
+            "stability": 55.1,
+            "efficiency": 33.0,
+            "value": 69.4,
+            "expandability": 70.0
+          },
+          "score": 73.06,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1090,
+              "total_usd": 1090
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+              "qty": 2,
+              "unit_usd": 1092,
+              "total_usd": 2184
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 389,
+              "total_usd": 389
+            }
+          ]
+        },
+        {
+          "signature": "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_palit|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Palit GamingPro",
+          "gpu_key": "rtx5080_16_palit",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5975,
+          "peak_w": 1052.0,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1036.2,
+          "capability": 0.8219,
+          "stability": 5.45,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.7,
+            "capability": 78.3,
+            "stability": 54.5,
+            "efficiency": 32.8,
+            "value": 69.4,
+            "expandability": 70.0
+          },
+          "score": 72.95,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1090,
+              "total_usd": 1090
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Palit GamingPro",
+              "qty": 2,
+              "unit_usd": 1104,
+              "total_usd": 2208
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 391,
+              "total_usd": 391
+            }
+          ]
+        },
+        {
+          "signature": "ws_3090|xatx2_r7_5700x3d_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_r7_5700x3d_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+          "gpu_key": "rtx5080_16_zotac",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5971,
+          "peak_w": 1082.5,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1032.5,
+          "capability": 0.8219,
+          "stability": 5.45,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.6,
+            "capability": 78.3,
+            "stability": 54.5,
+            "efficiency": 31.8,
+            "value": 69.2,
+            "expandability": 70.0
+          },
+          "score": 72.79,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1110,
+              "total_usd": 1110
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+              "qty": 2,
+              "unit_usd": 1092,
+              "total_usd": 2184
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 391,
+              "total_usd": 391
+            }
+          ]
+        }
+      ],
+      "top_signatures": [
+        "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+        "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_palit|1x2|2.5gbe|shared_nvme|single|ups",
+        "ws_3090|xatx2_r7_5700x3d_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups"
+      ]
+    },
+    {
+      "variant": "stability-first",
+      "weights": {
+        "throughput": 0.2,
+        "capability": 0.18,
+        "stability": 0.35,
+        "efficiency": 0.08,
+        "value": 0.12,
+        "expandability": 0.08
+      },
+      "top": [
+        {
+          "signature": "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|2.5gbe|nvme_raid|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+          "platform_key": "xmatx2_r5_5600_32g_1t_1000w_2g",
+          "gpu": "GeForce RTX 5060 Ti 16 GB",
+          "gpu_key": "rtx5060ti_16",
+          "boxes": 2,
+          "gpus_per_box": 2,
+          "gpus_total": 4,
+          "total_vram_gb": 64,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "2x 4 TB NVMe RAID 0 cache",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5846,
+          "peak_w": 1002.0,
+          "idle_w": 134,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 648.4,
+          "capability": 0.8375,
+          "stability": 8.46,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/4 of the GPUs",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 78.5,
+            "capability": 79.8,
+            "stability": 84.6,
+            "efficiency": 21.6,
+            "value": 44.4,
+            "expandability": 87.0
+          },
+          "score": 72.1,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+              "qty": 2,
+              "unit_usd": 815,
+              "total_usd": 1630
+            },
+            {
+              "label": "GPU: GeForce RTX 5060 Ti 16 GB",
+              "qty": 4,
+              "unit_usd": 500,
+              "total_usd": 2000
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 3,
+              "unit_usd": 8,
+              "total_usd": 24
+            },
+            {
+              "label": "Storage: 2x 4 TB NVMe RAID 0 cache",
+              "qty": 1,
+              "unit_usd": 520,
+              "total_usd": 520
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 382,
+              "total_usd": 382
+            }
+          ]
+        },
+        {
+          "signature": "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+          "platform_key": "xmatx2_r5_5600_32g_1t_1000w_2g",
+          "gpu": "GeForce RTX 5060 Ti 16 GB",
+          "gpu_key": "rtx5060ti_16",
+          "boxes": 2,
+          "gpus_per_box": 2,
+          "gpus_total": 4,
+          "total_vram_gb": 64,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5568,
+          "peak_w": 1002.0,
+          "idle_w": 134,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 648.4,
+          "capability": 0.8375,
+          "stability": 8.36,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/4 of the GPUs",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 78.5,
+            "capability": 79.8,
+            "stability": 83.6,
+            "efficiency": 21.6,
+            "value": 46.6,
+            "expandability": 87.0
+          },
+          "score": 72.14,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+              "qty": 2,
+              "unit_usd": 815,
+              "total_usd": 1630
+            },
+            {
+              "label": "GPU: GeForce RTX 5060 Ti 16 GB",
+              "qty": 4,
+              "unit_usd": 500,
+              "total_usd": 2000
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 3,
+              "unit_usd": 8,
+              "total_usd": 24
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 364,
+              "total_usd": 364
+            }
+          ]
+        },
+        {
+          "signature": "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "head_key": "ms01_head",
+          "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+          "platform_key": "xmatx2_r5_5600_32g_1t_1000w_2g",
+          "gpu": "GeForce RTX 5060 Ti 16 GB",
+          "gpu_key": "rtx5060ti_16",
+          "boxes": 2,
+          "gpus_per_box": 2,
+          "gpus_total": 4,
+          "total_vram_gb": 64,
+          "fabric": "5 GbE (8-port 5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5810,
+          "peak_w": 1002.0,
+          "idle_w": 134,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 662.7,
+          "capability": 0.8375,
+          "stability": 8.26,
+          "stability_notes": [
+            "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/4 of the GPUs",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 79.2,
+            "capability": 79.8,
+            "stability": 82.6,
+            "efficiency": 22.0,
+            "value": 45.6,
+            "expandability": 87.0
+          },
+          "score": 72.08,
+          "bom": [
+            {
+              "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+              "qty": 1,
+              "unit_usd": 840,
+              "total_usd": 840
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 1000 W, 2 GPU",
+              "qty": 2,
+              "unit_usd": 815,
+              "total_usd": 1630
+            },
+            {
+              "label": "GPU: GeForce RTX 5060 Ti 16 GB",
+              "qty": 4,
+              "unit_usd": 500,
+              "total_usd": 2000
+            },
+            {
+              "label": "Network: 5 GbE (8-port 5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 250,
+              "total_usd": 250
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 3,
+              "unit_usd": 10,
+              "total_usd": 30
+            },
+            {
+              "label": "Network: 2.5G/10G adapters",
+              "qty": 2,
+              "unit_usd": 45,
+              "total_usd": 90
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 380,
+              "total_usd": 380
+            }
+          ]
+        }
+      ],
+      "top_signatures": [
+        "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|2.5gbe|nvme_raid|single|ups",
+        "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|2.5gbe|shared_nvme|single|ups",
+        "ms01_head|xmatx2_r5_5600_32g_1t_1000w_2g|rtx5060ti_16|2x2|5gbe|shared_nvme|single|ups"
+      ]
+    },
+    {
+      "variant": "value-first",
+      "weights": {
+        "throughput": 0.22,
+        "capability": 0.18,
+        "stability": 0.22,
+        "efficiency": 0.08,
+        "value": 0.25,
+        "expandability": 0.08
+      },
+      "top": [
+        {
+          "signature": "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+          "gpu_key": "rtx5080_16_zotac",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5949,
+          "peak_w": 1042.5,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1032.5,
+          "capability": 0.8219,
+          "stability": 5.51,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.6,
+            "capability": 78.3,
+            "stability": 55.1,
+            "efficiency": 33.0,
+            "value": 69.4,
+            "expandability": 70.0
+          },
+          "score": 73.06,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1090,
+              "total_usd": 1090
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+              "qty": 2,
+              "unit_usd": 1092,
+              "total_usd": 2184
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 389,
+              "total_usd": 389
+            }
+          ]
+        },
+        {
+          "signature": "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_palit|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_i5_13400_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Palit GamingPro",
+          "gpu_key": "rtx5080_16_palit",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5975,
+          "peak_w": 1052.0,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1036.2,
+          "capability": 0.8219,
+          "stability": 5.45,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.7,
+            "capability": 78.3,
+            "stability": 54.5,
+            "efficiency": 32.8,
+            "value": 69.4,
+            "expandability": 70.0
+          },
+          "score": 72.95,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1090,
+              "total_usd": 1090
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Palit GamingPro",
+              "qty": 2,
+              "unit_usd": 1104,
+              "total_usd": 2208
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 391,
+              "total_usd": 391
+            }
+          ]
+        },
+        {
+          "signature": "ws_3090|xatx2_r7_5700x3d_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+          "head_mode": "dedicated",
+          "head": "Workstation head: ITX + RTX 3090 24 GB",
+          "head_key": "ws_3090",
+          "platform": "Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1300 W, 4 GPU",
+          "platform_key": "xatx2_r7_5700x3d_32g_1t_1300w_4g",
+          "gpu": "GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+          "gpu_key": "rtx5080_16_zotac",
+          "boxes": 1,
+          "gpus_per_box": 2,
+          "gpus_total": 2,
+          "total_vram_gb": 56,
+          "fabric": "2.5 GbE (8-port 2.5G switch)",
+          "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+          "ha": false,
+          "ups": true,
+          "total_cost_usd": 5971,
+          "peak_w": 1082.5,
+          "idle_w": 159,
+          "ups_rating": "2000 VA / 1600 W",
+          "perf_index": 1032.5,
+          "capability": 0.8219,
+          "stability": 5.45,
+          "stability_notes": [
+            "head has a GPU: a driver reset or OOM also kills the queue",
+            "multiple GPUs share one PSU per chassis",
+            "large fault domain: one node failure removes 2/2 of the GPUs",
+            "PSU above 90% of rating at peak: shutdown risk",
+            "UPS: prevents checkpoint/queue corruption on brownouts"
+          ],
+          "components": {
+            "throughput": 94.6,
+            "capability": 78.3,
+            "stability": 54.5,
+            "efficiency": 31.8,
+            "value": 69.2,
+            "expandability": 70.0
+          },
+          "score": 72.79,
+          "bom": [
+            {
+              "label": "Head node: Workstation head: ITX + RTX 3090 24 GB",
+              "qty": 1,
+              "unit_usd": 1560,
+              "total_usd": 1560
+            },
+            {
+              "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Ryzen 7 5700X3D, 32 GB, 1 TB, 1300 W, 4 GPU",
+              "qty": 1,
+              "unit_usd": 1110,
+              "total_usd": 1110
+            },
+            {
+              "label": "GPU: GeForce RTX 5080 16 GB \u2014 Zotac Twin Edge",
+              "qty": 2,
+              "unit_usd": 1092,
+              "total_usd": 2184
+            },
+            {
+              "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+              "qty": 1,
+              "unit_usd": 120,
+              "total_usd": 120
+            },
+            {
+              "label": "Network: cables/DACs",
+              "qty": 2,
+              "unit_usd": 8,
+              "total_usd": 16
+            },
+            {
+              "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+              "qty": 1,
+              "unit_usd": 260,
+              "total_usd": 260
+            },
+            {
+              "label": "UPS, 2000 VA / 1600 W line-interactive",
+              "qty": 1,
+              "unit_usd": 330,
+              "total_usd": 330
+            },
+            {
+              "label": "Contingency 7% (tax/shipping/price drift)",
+              "qty": 1,
+              "unit_usd": 391,
+              "total_usd": 391
+            }
+          ]
+        }
+      ],
+      "top_signatures": [
+        "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups",
+        "ws_3090|xatx2_i5_13400_32g_1t_1300w_4g|rtx5080_16_palit|1x2|2.5gbe|shared_nvme|single|ups",
+        "ws_3090|xatx2_r7_5700x3d_32g_1t_1300w_4g|rtx5080_16_zotac|1x2|2.5gbe|shared_nvme|single|ups"
+      ]
+    }
+  ],
+  "power_analysis": {
+    "best_raw_power": {
+      "signature": "ws_5080|xatx2_i5_13400_32g_1t_1600w_4g|rtx5070ti_16|1x2|2.5gbe|shared_nvme|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 5080 16 GB",
+      "head_key": "ws_5080",
+      "platform": "Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+      "platform_key": "xatx2_i5_13400_32g_1t_1600w_4g",
+      "gpu": "GeForce RTX 5070 Ti 16 GB",
+      "gpu_key": "rtx5070ti_16",
+      "boxes": 1,
+      "gpus_per_box": 2,
+      "gpus_total": 2,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "4 TB NVMe model cache in head, exported over NFS/SMB",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5881,
+      "peak_w": 938.0,
+      "idle_w": 144,
+      "ups_rating": "1500 VA / 1200 W",
+      "perf_index": 931.6,
+      "capability": 0.8062,
+      "stability": 6.2,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 91.0,
+        "capability": 76.8,
+        "stability": 62.0,
+        "efficiency": 33.1,
+        "value": 63.4,
+        "expandability": 70.0
+      },
+      "score": 72.43,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 5080 16 GB",
+          "qty": 1,
+          "unit_usd": 1900,
+          "total_usd": 1900
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom ATX2 PC \u2014 Core i5-13400, 32 GB, 1 TB, 1600 W, 4 GPU",
+          "qty": 1,
+          "unit_usd": 1240,
+          "total_usd": 1240
+        },
+        {
+          "label": "GPU: GeForce RTX 5070 Ti 16 GB",
+          "qty": 2,
+          "unit_usd": 860,
+          "total_usd": 1720
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 8,
+          "total_usd": 16
+        },
+        {
+          "label": "Storage: 4 TB NVMe model cache in head, exported over NFS/SMB",
+          "qty": 1,
+          "unit_usd": 260,
+          "total_usd": 260
+        },
+        {
+          "label": "UPS, 1500 VA / 1200 W line-interactive",
+          "qty": 1,
+          "unit_usd": 240,
+          "total_usd": 240
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 385,
+          "total_usd": 385
+        }
+      ]
+    },
+    "best_efficiency": {
+      "signature": "ws_5080|xmatx2_r5_5600_32g_1t_650w_2g|rtx4080s_16_zotac|1x2|5gbe|local|single|ups",
+      "head_mode": "dedicated",
+      "head": "Workstation head: ITX + RTX 5080 16 GB",
+      "head_key": "ws_5080",
+      "platform": "Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 650 W, 2 GPU",
+      "platform_key": "xmatx2_r5_5600_32g_1t_650w_2g",
+      "gpu": "GeForce RTX 4080 SUPER 16 GB \u2014 Zotac Twin Edge",
+      "gpu_key": "rtx4080s_16_zotac",
+      "boxes": 1,
+      "gpus_per_box": 2,
+      "gpus_total": 2,
+      "total_vram_gb": 48,
+      "fabric": "5 GbE (8-port 5G switch)",
+      "storage": "Per-node NVMe, models duplicated",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5991,
+      "peak_w": 952.5,
+      "idle_w": 130,
+      "ups_rating": "1500 VA / 1200 W",
+      "perf_index": 1006.9,
+      "capability": 0.8062,
+      "stability": 4.41,
+      "stability_notes": [
+        "head has a GPU: a driver reset or OOM also kills the queue",
+        "multiple GPUs share one PSU per chassis",
+        "large fault domain: one node failure removes 2/2 of the GPUs",
+        "GPU runs at the chassis power limit (no transient headroom)",
+        "PSU above 90% of rating at peak: shutdown risk",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 93.7,
+        "capability": 76.8,
+        "stability": 44.1,
+        "efficiency": 35.2,
+        "value": 67.2,
+        "expandability": 77.0
+      },
+      "score": 70.56,
+      "bom": [
+        {
+          "label": "Head node: Workstation head: ITX + RTX 5080 16 GB",
+          "qty": 1,
+          "unit_usd": 1900,
+          "total_usd": 1900
+        },
+        {
+          "label": "Worker chassis/CPU/RAM/SSD: Custom MATX2 PC \u2014 Ryzen 5 5600, 32 GB, 1 TB, 650 W, 2 GPU",
+          "qty": 1,
+          "unit_usd": 735,
+          "total_usd": 735
+        },
+        {
+          "label": "GPU: GeForce RTX 4080 SUPER 16 GB \u2014 Zotac Twin Edge",
+          "qty": 2,
+          "unit_usd": 1092,
+          "total_usd": 2184
+        },
+        {
+          "label": "PSU upgrade",
+          "qty": 1,
+          "unit_usd": 180,
+          "total_usd": 180
+        },
+        {
+          "label": "Network: 5 GbE (8-port 5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 250,
+          "total_usd": 250
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 2,
+          "unit_usd": 10,
+          "total_usd": 20
+        },
+        {
+          "label": "Network: 2.5G/10G adapters",
+          "qty": 2,
+          "unit_usd": 45,
+          "total_usd": 90
+        },
+        {
+          "label": "Storage: Per-node NVMe, models duplicated",
+          "qty": 1,
+          "unit_usd": 0,
+          "total_usd": 0
+        },
+        {
+          "label": "UPS, 1500 VA / 1200 W line-interactive",
+          "qty": 1,
+          "unit_usd": 240,
+          "total_usd": 240
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 392,
+          "total_usd": 392
+        }
+      ]
+    },
+    "efficiency_index": 1.0571,
+    "best_power_at_high_stability": {
+      "signature": "ms01_head|nucxi9|rtx3080m_16|3x1|2.5gbe|nvme_raid|single|ups",
+      "head_mode": "dedicated",
+      "head": "Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+      "head_key": "ms01_head",
+      "platform": "Minisforum NUCXi9 (i9-13900H + RTX 3080 Mobile 16 GB)",
+      "platform_key": "nucxi9",
+      "gpu": "GeForce RTX 3080 Mobile 16 GB",
+      "gpu_key": "rtx3080m_16",
+      "boxes": 3,
+      "gpus_per_box": 1,
+      "gpus_total": 3,
+      "total_vram_gb": 48,
+      "fabric": "2.5 GbE (8-port 2.5G switch)",
+      "storage": "2x 4 TB NVMe RAID 0 cache",
+      "ha": false,
+      "ups": true,
+      "total_cost_usd": 5887,
+      "peak_w": 947.2,
+      "idle_w": 126,
+      "ups_rating": "1500 VA / 1200 W",
+      "perf_index": 570.4,
+      "capability": 0.8062,
+      "stability": 8.55,
+      "stability_notes": [
+        "head has 10G + 3x M.2: queue, NFS and cache do not fight for I/O",
+        ">140 W GPU in a small chassis: sustained clocks depend on fan curves",
+        "UPS: prevents checkpoint/queue corruption on brownouts"
+      ],
+      "components": {
+        "throughput": 74.2,
+        "capability": 76.8,
+        "stability": 85.5,
+        "efficiency": 20.1,
+        "value": 38.8,
+        "expandability": 62.0
+      },
+      "score": 67.58,
+      "bom": [
+        {
+          "label": "Head node: Minisforum MS-01 (i9-13900H, 32 GB, 2 TB, 2x10G SFP+)",
+          "qty": 1,
+          "unit_usd": 840,
+          "total_usd": 840
+        },
+        {
+          "label": "Worker node, GPU included: Minisforum NUCXi9 (i9-13900H + RTX 3080 Mobile 16 GB)",
+          "qty": 3,
+          "unit_usd": 1250,
+          "total_usd": 3750
+        },
+        {
+          "label": "Network: 2.5 GbE (8-port 2.5G switch) - switch(es)",
+          "qty": 1,
+          "unit_usd": 120,
+          "total_usd": 120
+        },
+        {
+          "label": "Network: cables/DACs",
+          "qty": 4,
+          "unit_usd": 8,
+          "total_usd": 32
+        },
+        {
+          "label": "Storage: 2x 4 TB NVMe RAID 0 cache",
+          "qty": 1,
+          "unit_usd": 520,
+          "total_usd": 520
+        },
+        {
+          "label": "UPS, 1500 VA / 1200 W line-interactive",
+          "qty": 1,
+          "unit_usd": 240,
+          "total_usd": 240
+        },
+        {
+          "label": "Contingency 7% (tax/shipping/price drift)",
+          "qty": 1,
+          "unit_usd": 385,
+          "total_usd": 385
+        }
+      ]
+    },
+    "stability_floor": 7.0
+  }
+}

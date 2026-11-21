@@ -5,7 +5,7 @@ from __future__ import annotations
 import heapq
 from dataclasses import dataclass, field
 
-from .catalog import FABRICS, GPUS, HEADS, PLATFORMS, STORAGE
+from .catalog import BASE_CATALOG, Catalog, FABRICS, GPUS, HEADS, PLATFORMS, STORAGE
 from .model import MAX_BOXES, MAX_GPUS, Candidate, evaluate, make_bom
 
 
@@ -20,8 +20,11 @@ class Exploration:
     top: list[Candidate] = field(default_factory=list)
     pure_mini: list[Candidate] = field(default_factory=list)
     resilient: list[Candidate] = field(default_factory=list)
+    power_top: list[Candidate] = field(default_factory=list)
+    power_stable_top: list[Candidate] = field(default_factory=list)
     alternatives: dict[str, Candidate] = field(default_factory=dict)
     stats: dict = field(default_factory=dict)
+    catalog: Catalog = BASE_CATALOG
     group_best: dict[str, Candidate] = field(default_factory=dict)
 
     @property
@@ -33,11 +36,23 @@ def explore(
     budget: int = 6000,
     gpu_price_scale: float = 1.0,
     keep: int = 2000,
+    catalog: Catalog | None = None,
+    ups_options: tuple[bool, ...] = (True, False),
+    ha_options: tuple[bool, ...] = (False, True),
+    max_boxes: int = MAX_BOXES,
+    min_vram: int = 16,
+    eval_min_vram: int = 0,
+    fabric_options: tuple[str, ...] | None = None,
+    storage_options: tuple[str, ...] | None = None,
+    require_cuda: bool = False,
 ) -> Exploration:
-    ex = Exploration(budget=budget, gpu_price_scale=gpu_price_scale)
+    cat = catalog or BASE_CATALOG
+    ex = Exploration(budget=budget, gpu_price_scale=gpu_price_scale, catalog=cat)
     main_heap: list[tuple[float, int, str, Candidate]] = []
     mini_heap: list[tuple[float, int, str, Candidate]] = []
     res_heap: list[tuple[float, float, int, str, Candidate]] = []
+    power_heap: list[tuple[float, float, int, str, Candidate]] = []
+    stable_heap: list[tuple[float, float, int, str, Candidate]] = []
     by_fabric: dict[str, int] = {}
     by_mode: dict[str, int] = {}
     by_platform: dict[str, int] = {}
@@ -49,31 +64,34 @@ def explore(
         if current is None or (candidate.score, -candidate.total_cost) > (current.score, -current.total_cost):
             alternatives[key] = candidate
 
-    for platform_key, platform in PLATFORMS.items():
+    for platform_key, platform in cat.platforms.items():
         gpu_keys = (platform.fixed_gpu,) if platform.fixed_gpu else platform.gpu_choices
         for gpu_key in gpu_keys:
-            gpu = GPUS[gpu_key]
-            if gpu.tdp_w > platform.max_gpu_tdp:
+            if gpu_key not in cat.gpus:
+                continue
+            gpu = cat.gpus[gpu_key]
+            if gpu.tdp_w > platform.max_gpu_tdp or gpu.vram_gb < eval_min_vram:
                 continue
             for gpus_per_box in range(1, platform.gpu_slots + 1):
                 if platform.fixed_gpu and gpus_per_box != 1:
                     continue
-                for boxes in range(1, MAX_BOXES + 1):
+                for boxes in range(1, max_boxes + 1):
                     if boxes * gpus_per_box > MAX_GPUS:
                         break
-                    for fabric_key in FABRICS:
-                        for storage_key in STORAGE:
-                            for ups in (True, False):
+                    for fabric_key in (fabric_options or tuple(cat.fabrics)):
+                        for storage_key in (storage_options or tuple(cat.storage)):
+                            for ups in ups_options:
                                 for mode in ("dedicated", "homogeneous"):
-                                    head_options = tuple(HEADS) if mode == "dedicated" else (None,)
+                                    head_options = tuple(cat.heads) if mode == "dedicated" else (None,)
                                     for head_key in head_options:
-                                        for ha in ((False, True) if mode == "dedicated" else (False,)):
+                                        for ha in (ha_options if mode == "dedicated" else (False,)):
                                             ex.considered += 1
                                             c = evaluate(
                                                 head_key, mode, platform_key, gpu_key,
                                                 boxes, gpus_per_box, fabric_key,
                                                 storage_key, ha, ups,
                                                 gpu_price_scale, detailed=False,
+                                                catalog=cat,
                                             )
                                             if c is None:
                                                 continue
@@ -85,6 +103,12 @@ def explore(
                                             by_mode[mode] = by_mode.get(mode, 0) + 1
                                             by_platform[platform_key] = by_platform.get(platform_key, 0) + 1
 
+                                            if require_cuda and gpu.vendor != "nvidia":
+                                                if (ups and not gpu.used and not platform.used
+                                                        and gpu.vram_gb >= min_vram):
+                                                    keep_alt("non_cuda", c)
+                                                continue
+
                                             if ups:
                                                 if gpu.used or platform.used:
                                                     keep_alt("value_used", c)
@@ -92,8 +116,9 @@ def explore(
                                                         and not gpu.used and gpu.vram_gb >= 16):
                                                     keep_alt("no_separate_head", c)
                                                 if (gpu.vram_gb >= 24 and boxes <= 3
+                                                        and not gpu.used and not platform.used
                                                         and c.head_mode == "dedicated"
-                                                        and not HEADS[c.head_key].has_gpu):
+                                                        and not cat.heads[c.head_key].has_gpu):
                                                     keep_alt("vram_first", c)
 
                                             gkey = f"{gpu_key}|{c.gpus_total}|{fabric_key}|{mode}"
@@ -105,9 +130,22 @@ def explore(
                                             # warranty, and >=16 GB per GPU so Flux dev
                                             # fits without aggressive offload.
                                             if (not ups or gpu.used or platform.used
-                                                    or gpu.vram_gb < 16):
+                                                    or gpu.vram_gb < min_vram):
                                                 continue
                                             ex.eligible += 1
+                                            pitem = (c.perf_index, c.score, -c.total_cost,
+                                                     c.signature, c)
+                                            if len(power_heap) < 100:
+                                                heapq.heappush(power_heap, pitem)
+                                            elif pitem[:4] > power_heap[0][:4]:
+                                                heapq.heapreplace(power_heap, pitem)
+                                            if c.stability >= 6.0:
+                                                sitem = (c.perf_index, c.score, -c.total_cost,
+                                                         c.signature, c)
+                                                if len(stable_heap) < 100:
+                                                    heapq.heappush(stable_heap, sitem)
+                                                elif sitem[:4] > stable_heap[0][:4]:
+                                                    heapq.heapreplace(stable_heap, sitem)
                                             item = (c.score, -c.total_cost, c.signature, c)
                                             if len(main_heap) < keep:
                                                 heapq.heappush(main_heap, item)
@@ -139,9 +177,20 @@ def explore(
     ex.top = top
     ex.pure_mini = mini
     ex.resilient = res
+    ex.power_top = [
+        item[4] for item in sorted(
+            power_heap, key=lambda x: (-x[0], -x[1], -x[2], x[3])
+        )
+    ]
+    ex.power_stable_top = [
+        item[4] for item in sorted(
+            stable_heap, key=lambda x: (-x[0], -x[1], -x[2], x[3])
+        )
+    ]
     ex.alternatives = alternatives
     ex.group_best = group
     ex.stats = {
+        "min_vram": min_vram,
         "by_fabric": by_fabric,
         "by_head_mode": by_mode,
         "by_platform": by_platform,
@@ -200,6 +249,63 @@ def select_winners(ex: Exploration, count: int = 3) -> list[tuple[Candidate, str
     return picks[:count]
 
 
+def select_power_winners(
+    ex: Exploration,
+    count: int = 3,
+    stability_floor: float = 6.0,
+) -> list[tuple[Candidate, str, str]]:
+    """Podium for the variant study: balanced, raw power, resilient."""
+    if not ex.top:
+        return []
+    picks: list[tuple[Candidate, str, str]] = []
+    best = ex.top[0]
+    picks.append((
+        best, "Best overall",
+        "Highest weighted score after the full variant search.",
+    ))
+    chosen = {best.signature}
+
+    source = ex.power_stable_top or ex.power_top or ex.top
+    power_pool = [
+        c for c in source
+        if c.signature not in chosen and c.stability >= stability_floor
+    ]
+    if power_pool:
+        power = max(
+            power_pool,
+            key=lambda c: (c.perf_index, c.stability, -c.total_cost),
+        )
+        picks.append((
+            power, "Best raw power",
+            f"Highest aggregate GPU index with stability >= {stability_floor:.1f}; "
+            "this is the build to pick when throughput matters more than uptime.",
+        ))
+        chosen.add(power.signature)
+
+    floor = best.score * 0.88
+    pool = [
+        c for c in ex.resilient
+        if c.signature not in chosen and c.score >= floor
+    ]
+    if pool:
+        res = max(pool, key=lambda c: (c.score, c.stability, -c.total_cost))
+        picks.append((
+            res, "Most resilient",
+            "Best score among one-GPU-per-chassis builds with at least three nodes "
+            "and stability >= 8.5.",
+        ))
+        chosen.add(res.signature)
+
+    for c in ex.top:
+        if len(picks) >= count:
+            break
+        if c.signature not in chosen:
+            picks.append((c, "Runner-up", "Next-best distinct topology."))
+            chosen.add(c.signature)
+    picks.sort(key=lambda item: -item[0].score)
+    return picks[:count]
+
+
 def head_ladder(
     platform_key: str,
     gpu_key: str,
@@ -210,12 +316,14 @@ def head_ladder(
     ups: bool = True,
     gpu_price_scale: float = 1.0,
     budget: int = 6000,
+    catalog: Catalog | None = None,
 ) -> list[dict]:
     """Every head option for one fixed worker fleet, plus the no-separate-head case."""
+    cat = catalog or BASE_CATALOG
     rows: list[dict] = []
-    for head_key, head in HEADS.items():
+    for head_key, head in cat.heads.items():
         c = evaluate(head_key, "dedicated", platform_key, gpu_key, boxes, gpus_per_box,
-                     fabric_key, storage_key, False, ups, gpu_price_scale)
+                     fabric_key, storage_key, False, ups, gpu_price_scale, catalog=cat)
         if c is None:
             continue
         rows.append({
@@ -231,7 +339,7 @@ def head_ladder(
             "within_budget": c.total_cost <= budget,
         })
     hom = evaluate(None, "homogeneous", platform_key, gpu_key, boxes, gpus_per_box,
-                   fabric_key, storage_key, False, ups, gpu_price_scale)
+                   fabric_key, storage_key, False, ups, gpu_price_scale, catalog=cat)
     if hom is not None:
         rows.append({
             "head_key": None,
@@ -258,23 +366,25 @@ def head_mode_comparison(
     ups: bool = True,
     gpu_price_scale: float = 1.0,
     budget: int = 6000,
+    catalog: Catalog | None = None,
 ) -> list[dict]:
     """Three ways to place the head at an equal GPU count.
 
     1. dedicated non-GPU head  2. head with its own GPU  3. a worker as head.
     """
+    cat = catalog or BASE_CATALOG
     out: list[dict] = []
     for n in gpu_counts:
         ded_all = [
-            (key, c) for key in HEADS for c in (
+            (key, c) for key in cat.heads for c in (
                 evaluate(key, "dedicated", platform_key, gpu_key, n, 1, fabric_key,
-                         storage_key, False, ups, gpu_price_scale),
+                         storage_key, False, ups, gpu_price_scale, catalog=cat),
             ) if c is not None
         ]
-        ded = [(k, c) for k, c in ded_all if not HEADS[k].has_gpu]
-        gpu_heads = [(k, c) for k, c in ded_all if HEADS[k].has_gpu]
+        ded = [(k, c) for k, c in ded_all if not cat.heads[k].has_gpu]
+        gpu_heads = [(k, c) for k, c in ded_all if cat.heads[k].has_gpu]
         hom = evaluate(None, "homogeneous", platform_key, gpu_key, n, 1, fabric_key,
-                       storage_key, False, ups, gpu_price_scale)
+                       storage_key, False, ups, gpu_price_scale, catalog=cat)
         if not ded:
             continue
         dk, d = max(ded, key=lambda kc: (kc[1].score, -kc[1].total_cost))

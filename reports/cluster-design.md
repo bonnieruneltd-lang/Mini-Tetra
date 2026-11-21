@@ -2,7 +2,8 @@
 
 This is the human-readable companion to [`best3.md`](best3.md). It covers what to
 buy, how to assemble it, how to run Forge as a queued multi-node service, and how
-to prove it is stable before you trust it.
+to prove it is stable before you trust it. For the 1,528-model expanded search and
+the power-first podium, see [`best3-variants.md`](best3-variants.md).
 
 **Assumptions**
 
